@@ -19,5 +19,6 @@ private:
 
 public:
 	static Player* Create();
+	float m_Angle;
 };
 

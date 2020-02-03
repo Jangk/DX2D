@@ -15,5 +15,6 @@ private:
 protected:
 	INFO	m_tInfo;
 	RECT	m_Rect;
+	float	m_fSpeed;
 };
 

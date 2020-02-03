@@ -10,7 +10,6 @@
 
 // 전역 변수:
 HWND g_hWnd;
-POINT g_MousePos;
 HINSTANCE hInst;                                // 현재 인스턴스입니다.
 WCHAR szTitle[MAX_LOADSTRING];                  // 제목 표시줄 텍스트입니다.
 WCHAR szWindowClass[MAX_LOADSTRING];            // 기본 창 클래스 이름입니다.
@@ -115,10 +114,6 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-    // 마우스 좌표 받아오기.
-    g_MousePos.x = LOWORD(lParam);
-    g_MousePos.y = HIWORD(lParam);
-
     switch (message)
     {
     case WM_KEYDOWN:
