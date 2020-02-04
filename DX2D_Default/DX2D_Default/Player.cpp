@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "Player.h"
 
-Player::Player()
+Player::Player() :m_fAngle(0)
 {
 }
 
@@ -12,38 +12,58 @@ Player::~Player()
 
 void Player::Update()
 {
-	POINT pt;
-	::GetCursorPos(&pt);
-	::ScreenToClient(g_hWnd, &pt);
-	D3DXVECTOR3 mouse = {(float)pt.x, (float)pt.y, 0 };
+	POINT mpt;
+	::GetCursorPos(&mpt);
+	::ScreenToClient(g_hWnd, &mpt);
+	D3DXVECTOR3 mouse = {(float)mpt.x, (float)mpt.y, 0 };
 
-	// 벡터 내적으로 구하기.
-	m_tInfo.vDir = mouse - m_tInfo.vPos;
-	D3DXVec3Normalize(&m_tInfo.vDir, &m_tInfo.vDir);
-	float fCos = D3DXVec3Dot(&m_tInfo.vDir, &m_tInfo.vLook);
-	float radian =  acosf(fCos);
-	if (mouse.y > m_tInfo.vPos.y)
-		radian *= -1;
-	
-	m_tInfo.vPos.x += cosf(radian);
-	m_tInfo.vPos.y -= sinf(radian);
+
+	if (GetAsyncKeyState(VK_UP) & 0x8000)
+		m_tInfo.vPos += m_tInfo.vDir * m_fSpeed;
+	if (GetAsyncKeyState(VK_DOWN) & 0x8000)
+		m_tInfo.vPos -= m_tInfo.vDir * m_fSpeed;
+
+	if (GetAsyncKeyState(VK_LEFT) & 0x8000)
+		m_fAngle += m_fSpeed;
+	if (GetAsyncKeyState(VK_RIGHT) & 0x8000)
+		m_fAngle -= m_fSpeed;
+
+	//if (m_fAngle < -360 || m_fAngle > 360)
+	//	m_fAngle = 0;
+
+
+	for (int i = 0; i < 4; ++i)
+	{
+		m_vConvert[i].x = m_vOrigin[i].x *  cosf(m_fAngle) 
+						- m_vOrigin[i].y * -sinf(m_fAngle);
+		m_vConvert[i].y = m_vOrigin[i].x * -sinf(m_fAngle) 
+						- m_vOrigin[i].y *  cosf(m_fAngle);
+		m_vConvert[i] = m_vOrigin[i] + m_tInfo.vPos;
+	}
+
+
+	m_tInfo.vDir.x = m_tInfo.vLook.x * cosf(m_fAngle)
+				   - m_tInfo.vLook.y * -sinf(m_fAngle);
+	m_tInfo.vDir.y = m_tInfo.vLook.x * -sinf(m_fAngle)
+				   - m_tInfo.vLook.y * cosf(m_fAngle);
 }
 
 void Player::LateUpdate()
 {
 }
 
-void Player::Render(HDC hDC)
+void Player::Render(HDC hDC)	
 {
 	GameObject::UpdateRect();
-	Rectangle(hDC, m_Rect.left, m_Rect.top, m_Rect.right, m_Rect.bottom);
+	
+	MoveToEx(hDC, m_vConvert[0].x, m_vConvert[0].y, nullptr);
+	for(int i =1; i<4; ++i)
+		LineTo(hDC, m_vConvert[i].x, m_vConvert[i].y);
+	LineTo(hDC, m_vConvert[0].x, m_vConvert[0].y);
 
-	MoveToEx(hDC, m_tInfo.vPos.x, m_tInfo.vPos.y, nullptr);
-	LineTo(hDC, m_tInfo.vPos.x + cosf(m_Angle * 3.14 / 180) * 100, 
-				m_tInfo.vPos.y + sinf(m_Angle * 3.14 / 180) * 100);
-	// 글자
+
 	TCHAR szBuf[64] = L"";
-	swprintf_s(szBuf, L"각도: %0.1f", m_Angle);
+	swprintf_s(szBuf, L"각도: %0.1f", m_fAngle);
 	RECT rc = { 100, 100, 200, 200 };
 	DrawText(hDC, szBuf, lstrlen(szBuf), &rc, DT_NOCLIP);
 }
@@ -51,12 +71,22 @@ void Player::Render(HDC hDC)
 HRESULT Player::Initialize()
 {
 	m_tInfo.vPos	= { 400.f, 300.f, 0.f }; // x, y, z
-	m_tInfo.vDir	= { 1.f, 1.f, 0.f };
-	m_tInfo.vLook	= { 1.f, 0, 0 };
+	m_tInfo.vDir	= { 0.f, 0.f, 0.f };
+	m_tInfo.vLook	= { 0.f, -1, 0 };
 	m_tInfo.fCX		= 100;
 	m_tInfo.fCY		= 100;
 	m_fSpeed		= 5.0f;
-	m_Angle			= 0.f;
+	m_fAngle		= 0.f;
+
+	
+	m_vOrigin[0].x = - 50;
+	m_vOrigin[0].y = - 50;
+	m_vOrigin[1].x = + 50;
+	m_vOrigin[1].y = - 50;
+	m_vOrigin[2].x = + 50;
+	m_vOrigin[2].y = + 50;
+	m_vOrigin[3].x = - 50;
+	m_vOrigin[3].y = + 50;
 	//return E_FAIL;
 	return S_OK;
 }

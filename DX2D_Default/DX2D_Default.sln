@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Headers", "Headers", "{D9C7
 		Headers\Define.h = Headers\Define.h
 		Headers\Extern.h = Headers\Extern.h
 		Headers\Function.h = Headers\Function.h
+		Headers\KeyManager.cpp = Headers\KeyManager.cpp
+		Headers\KeyManager.h = Headers\KeyManager.h
 		Headers\Struct.h = Headers\Struct.h
 	EndProjectSection
 EndProject
