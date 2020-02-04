@@ -20,19 +20,20 @@
 #define NULL_CHECK_RETURN(ptr, val) if(nullptr == (ptr)) return val;
 #define NULL_CHECK_MSG_RETURN(ptr, msg, val) if(nullptr == (ptr)) { ::MessageBox(0, msg, L"Error", MB_OK); return val; }
 
-
 // ΩÃ±€≈Ê ∏≈≈©∑Œ
-// header
-#define DECLARE_SINGLETON(ClassName)			\
+#define NO_COPY(ClassName)						\
 private:										\
-	ClassName(const ClassName&)					\
-	ClassName& operator=(const ClassName&);		\
+	ClassName(const ClassName&);				\
+	ClassName& operator=(const ClassName&);
+
+// «Ï¥ı
+#define DECLARE_SINGLETON(ClassName)			\
+		NO_COPY(ClassName)						\
 public:											\
 	static ClassName* GetInstance();			\
 	void DestroyInstance();						\
 private:										\
-	static ClassName* m_pInstance;				\
-
+	static ClassName* m_pInstance;
 
 // cpp
 #define IMPLEMENT_SINGLETON(ClassName)			\
@@ -50,6 +51,5 @@ void ClassName::DestroyInstance()				\
 		delete m_pInstance;						\
 		m_pInstance = nullptr;					\
 	}											\
-}												\
-
-#endif // !__DEFINE_H__
+}
+#endif

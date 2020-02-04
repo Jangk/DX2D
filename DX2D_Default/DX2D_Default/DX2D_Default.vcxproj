@@ -154,6 +154,7 @@
     <ClInclude Include="DX2D_Default.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="KeyMgr.h" />
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Player.h" />
@@ -163,6 +164,7 @@
   <ItemGroup>
     <ClCompile Include="DX2D_Default.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="KeyMgr.cpp" />
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

@@ -13,6 +13,12 @@
     <Filter Include="99.Default">
       <UniqueIdentifier>{c3e4d174-68e0-4028-b3d2-ddaf4430ec71}</UniqueIdentifier>
     </Filter>
+    <Filter Include="98,Manager">
+      <UniqueIdentifier>{6189aace-0ed2-45cf-9d8d-eea7c3df8061}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98,Manager\00.KeyManager">
+      <UniqueIdentifier>{596a0f6d-073f-4697-a5b5-2a4ab9ab5318}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h">
@@ -39,6 +45,9 @@
     <ClInclude Include="MainGame.h">
       <Filter>00.MainGame</Filter>
     </ClInclude>
+    <ClInclude Include="KeyMgr.h">
+      <Filter>98,Manager\00.KeyManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Player.cpp">
@@ -55,6 +64,9 @@
     </ClCompile>
     <ClCompile Include="MainGame.cpp">
       <Filter>00.MainGame</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyMgr.cpp">
+      <Filter>98,Manager\00.KeyManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

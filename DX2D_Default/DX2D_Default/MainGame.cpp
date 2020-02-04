@@ -2,7 +2,7 @@
 #include "Player.h"
 #include "MainGame.h"
 
-MainGame::MainGame() : m_pPlayer(nullptr)
+MainGame::MainGame() : m_pPlayer(nullptr), m_pKeyMgr(CKeyMgr::GetInstance())
 {
 }
 
@@ -14,6 +14,7 @@ MainGame::~MainGame()
 void MainGame::Update()
 {
 	m_pPlayer->Update();
+	m_pKeyMgr->Update();
 }
 
 void MainGame::LateUpdate()

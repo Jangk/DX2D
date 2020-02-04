@@ -24,5 +24,6 @@ private:
 	HDC m_hDC;
 
 	Player* m_pPlayer;
+	CKeyMgr* m_pKeyMgr;
 };
 
