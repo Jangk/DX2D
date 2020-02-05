@@ -20,9 +20,8 @@ private:
 public:
 	static Player* Create();
 
-	D3DXVECTOR4 m_vOrigin[4];
-	D3DXVECTOR4 m_vConvert[4];
-	D3DXMATRIX m_Matrix;
+	D3DXVECTOR3 m_vOrigin[4];
+	D3DXVECTOR3 m_vConvert[4];
 	float m_fAngle;
 	
 	
