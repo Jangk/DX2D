@@ -29,7 +29,7 @@ void Player::LateUpdate()
 	D3DXMATRIX scale, rotate, translation;
 	
 	D3DXMatrixScaling(&scale, 1.0f, 1.0f, 1.0f);
-	D3DXMatrixRotationZ(&rotate, D3DXToRadian(-m_fAngle));			// 회전 기준이 데카르트 좌표계라서 win좌표처럼 -로넣음
+	D3DXMatrixRotationZ(&rotate, D3DXToRadian(-m_fAngle));	// 회전 기준이 데카르트 좌표계라서 win좌표처럼 -로넣음
 	D3DXMatrixTranslation(&translation, m_tInfo.vPos.x, m_tInfo.vPos.y, 0);
 	m_tInfo.matWorld = scale * rotate * translation;
 

@@ -24,7 +24,8 @@
 #include "Extern.h"
 #include "Struct.h"
 #include "Function.h"
+#include "Enum.h"
 
 // 매니저
 #include "KeyMgr.h"
-#include "MathMgr.h"
+#include "DeviceMgr.h"

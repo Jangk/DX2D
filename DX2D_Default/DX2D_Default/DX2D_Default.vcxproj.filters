@@ -19,6 +19,9 @@
     <Filter Include="98,Manager\00.KeyManager">
       <UniqueIdentifier>{596a0f6d-073f-4697-a5b5-2a4ab9ab5318}</UniqueIdentifier>
     </Filter>
+    <Filter Include="98,Manager\01.DeviceMgr">
+      <UniqueIdentifier>{70e2edb7-90b3-4479-a255-d5b8f4134ce9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h">
@@ -48,6 +51,9 @@
     <ClInclude Include="KeyMgr.h">
       <Filter>98,Manager\00.KeyManager</Filter>
     </ClInclude>
+    <ClInclude Include="DeviceMgr.h">
+      <Filter>98,Manager\01.DeviceMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Player.cpp">
@@ -67,6 +73,9 @@
     </ClCompile>
     <ClCompile Include="KeyMgr.cpp">
       <Filter>98,Manager\00.KeyManager</Filter>
+    </ClCompile>
+    <ClCompile Include="DeviceMgr.cpp">
+      <Filter>98,Manager\01.DeviceMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

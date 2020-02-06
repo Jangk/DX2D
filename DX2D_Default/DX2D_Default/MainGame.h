@@ -25,5 +25,6 @@ private:
 
 	Player* m_pPlayer;
 	CKeyMgr* m_pKeyMgr;
+	DeviceMgr* m_pDeviceMgr;
 };
 

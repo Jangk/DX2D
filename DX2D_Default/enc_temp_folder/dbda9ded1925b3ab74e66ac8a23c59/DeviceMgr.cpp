@@ -15,6 +15,36 @@ DeviceMgr::~DeviceMgr()
 
 HRESULT DeviceMgr::InitDevice(DISPLAY_MODE eMode)
 {	
+	// 0. 표면 (2D) 
+	// surface가 IDirect3DSurface9 인터페이스로의 포인터라고 가정한다. 
+	// 32-버트 픽셀 포맷올 이용한다고 가정한다. 
+	// 표면 정보를 얻는다.
+	//IDirect3DSurface9 *_surface;
+	//D3DSURFACE_DESC surfaceDesc; 
+	//_surface->GetDesc(& surfaceDesc); 
+	// 표면 픽셀 데이터로의 포인터를 얻는다. 
+	//D3DLOCKED_RECT lockedRect; 
+	//_surface->LockRect(
+	//	&lockedRect,	// 잠근 데이터를 얻을 포인터 
+	//	0,				// 전체 표변을 장근다. 
+	//	0);				// 잠금 플래그를 지정하지 않는다. 
+	//					// 표면의 각 픽셀을 대상으로 반복하여 픽셀을 빨간색으로 지정한다. 
+	//DWORD* irnageData = (DWORD*)lockedRect.pBits; 
+	//for (int i = 0; i < surfaceDesc.Height; i++)
+	//{
+	//	for (int j = 0; j < surfaceDesc.Width; j++)
+	//	{
+	//		// 피치는 바이트 단위이며 DWORD 탕 4바이트이므로 
+	//		// 피치를 4로 나누었음에 주의하자. 
+	//		int index = i * lockedRect . Pitch / 4 + j ; 
+	//		imageData[index] = 0xffff0000; // red 
+	//	}
+	//}
+	//_surface-> UnlockRect();
+	
+	
+	
+	
 	// 장치 초기화
 	// 1. IDirect3D9 객체 생성
 	m_pSDK = Direct3DCreate9(D3D_SDK_VERSION);
@@ -67,37 +97,34 @@ HRESULT DeviceMgr::InitDevice(DISPLAY_MODE eMode)
 
 
 	// TestOnly
-	
 	InitVertex();
 	return S_OK;
 }
 
-void DeviceMgr::Render_Begin()
+void DeviceMgr::Render()
 {
 	// 화면을 지운다.
-	m_pGraphicDev->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL, 
-						 D3DCOLOR_ARGB(255,0,0,255), 1.0f, 0);
+	m_pGraphicDev->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, 0x000000ff, 1.0f, 0);
 
 
 	// Render 시작
-	if(SUCCEEDED(m_pGraphicDev->BeginScene()));
-	{
-		// 정점 버퍼를 디바이스에 연결
-		m_pGraphicDev->SetStreamSource(0, m_VB, 0, sizeof(CUSTOMVERTEX));
-		// FVF 설정
-		m_pGraphicDev->SetFVF(D3DFVF_CUSTOMVERTEX);
-		// Draw
-		m_pGraphicDev->DrawPrimitive(D3DPT_TRIANGLELIST, 0, 1);
-	}
-}
+	m_pGraphicDev->BeginScene();
 
-void DeviceMgr::Render_End()
-{
+
+	// 정점 버퍼를 디바이스에 연결
+	m_pGraphicDev->SetStreamSource(0, m_vertexBuf, 0, sizeof(CUSTOMVERTEX));
+	// FVF 설정
+	m_pGraphicDev->SetFVF(D3DFVF_CUSTOMVERTEX);
+	// Draw
+	m_pGraphicDev->DrawPrimitive(D3DPT_TRIANGLELIST, 0, 1);
+
+
+
 	// Render 끝
 	m_pGraphicDev->EndScene();
-	
-	// 백 버퍼를 전면 버퍼로 (화면 출력
-	m_pGraphicDev->Present(nullptr, nullptr, nullptr, nullptr);
+
+	// 백 버퍼를 render
+	m_pGraphicDev->Present(0,0,0,0);
 }
 
 void DeviceMgr::Release()
@@ -106,8 +133,6 @@ void DeviceMgr::Release()
 		m_pGraphicDev->Release();
 	if(m_pSDK != NULL)
 		m_pSDK->Release();
-	if (m_VB != NULL)
-		m_VB->Release();
 }
 
 void DeviceMgr::InitVertex()
@@ -121,14 +146,13 @@ void DeviceMgr::InitVertex()
 
 	// D3DFVF_CUSTOMVERTEX는 struct에 내가 직접 define 정의한것.
 	m_pGraphicDev->CreateVertexBuffer(3 * sizeof(CUSTOMVERTEX), 0, D3DFVF_CUSTOMVERTEX,
-									 D3DPOOL_DEFAULT, &m_VB, NULL);
+									 D3DPOOL_DEFAULT, &m_vertexBuf, NULL);
 
-	VOID* pVertices = nullptr;
+	void* pVertices = nullptr;
 	// 정점버퍼에 lock을 걸어 포인터를 얻어옴.
-	//이부분 외않대지
-	m_VB->Lock(0, sizeof(vertexes), (void**)vertexes, 0);
-	//memcpy_s(pVertices, sizeof(pVertices), vertexes, sizeof(vertexes));
-	m_VB->Unlock();
+	m_vertexBuf->Lock(0, sizeof(vertexes), (void**)vertexes, 0);
+	memcpy(pVertices, vertexes, sizeof(vertexes));
+	m_vertexBuf->Unlock();
 	 
 }
 

@@ -9,3 +9,14 @@ typedef struct tagInfo
 						//         스케일-자전-이동-공전-부모행렬
 	float fCX, fCY;
 }INFO;
+
+
+
+
+// TestOnly
+struct CUSTOMVERTEX
+{	//    x, y, z, 깊이   == FVF 규칙에 의해 꼭 이 순서대로 되어야한다.
+	float x, y, z, rhw;
+	DWORD color;
+};
+#define D3DFVF_CUSTOMVERTEX (D3DFVF_XYZRHW | D3DFVF_DIFFUSE)

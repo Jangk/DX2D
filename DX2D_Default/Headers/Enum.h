@@ -1,6 +1,7 @@
 #pragma once
 
-enum aaa
+enum DISPLAY_MODE
 {
-
+	MODE_FULL,
+	MODE_WIN
 };

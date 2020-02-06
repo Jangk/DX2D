@@ -20,6 +20,14 @@
 #define NULL_CHECK_RETURN(ptr, val) if(nullptr == (ptr)) return val;
 #define NULL_CHECK_MSG_RETURN(ptr, msg, val) if(nullptr == (ptr)) { ::MessageBox(0, msg, L"Error", MB_OK); return val; }
 
+// null checker
+#define FAILED_CHECK(hr) if(FAILED(hr)) return;
+#define FAILED_CHECK_MSG(hr, msg) if(FAILED(hr)) { ::MessageBox(0, msg, L"Error", MB_OK); return; }
+#define FAILED_CHECK_RETURN(hr, val) if(FAILED(hr)) return val;
+#define FAILED_CHECK_MSG_RETURN(hr, msg, val) if(FAILED(hr)) { ::MessageBox(0, msg, L"Error", MB_OK); return val; }
+
+
+
 // ΩÃ±€≈Ê ∏≈≈©∑Œ
 #define NO_COPY(ClassName)						\
 private:										\

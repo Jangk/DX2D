@@ -2,7 +2,7 @@
 #include "Player.h"
 #include "MainGame.h"
 
-MainGame::MainGame() : m_pPlayer(nullptr), m_pKeyMgr(CKeyMgr::GetInstance())
+MainGame::MainGame() : m_pPlayer(nullptr), m_pKeyMgr(CKeyMgr::GetInstance()), m_pDeviceMgr(DeviceMgr::GetInstance())
 {
 }
 
@@ -25,7 +25,8 @@ void MainGame::LateUpdate()
 void MainGame::Render()
 {
 	Rectangle(m_hDC, 0, 0, WINCX, WINCY);
-	m_pPlayer->Render(m_hDC);
+	m_pDeviceMgr->Render_Begin();
+	m_pDeviceMgr->Render_End();
 }
 
 HRESULT MainGame::Initialize()
@@ -35,13 +36,14 @@ HRESULT MainGame::Initialize()
 	m_pPlayer = Player::Create();
 	NULL_CHECK_MSG_RETURN(m_pPlayer, L"Player Create Failed", E_FAIL);
 
+	DeviceMgr::GetInstance()->InitDevice(MODE_FULL);
+
 	return S_OK;
 }
 
 void MainGame::Release()
 {
 	ReleaseDC(g_hWnd, m_hDC);
-
 	SafeDelete(m_pPlayer);
 }
 
