@@ -19,6 +19,8 @@ public:
 private:
 	LPDIRECT3D9			m_pSDK;
 	LPDIRECT3DDEVICE9	m_pGraphicDev;
+	// 2d 이미지를 띄우기 위한 객체
+	LPD3DXSPRITE		m_pSprite;
 	
 
 	// TestOnly

@@ -22,6 +22,15 @@
     <Filter Include="98,Manager\01.DeviceMgr">
       <UniqueIdentifier>{70e2edb7-90b3-4479-a255-d5b8f4134ce9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="98,Manager\02.TextureMgr">
+      <UniqueIdentifier>{c9abcff7-6f71-4ef2-a8dd-8915e16160cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98,Manager\02.TextureMgr\00.SingleTexture">
+      <UniqueIdentifier>{d2a3cfc0-5b5b-47d4-8c07-85d2e99c896c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98,Manager\02.TextureMgr\01.MultiTexture">
+      <UniqueIdentifier>{332711ab-1b71-440c-a99f-50025b46e00b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h">
@@ -54,6 +63,9 @@
     <ClInclude Include="DeviceMgr.h">
       <Filter>98,Manager\01.DeviceMgr</Filter>
     </ClInclude>
+    <ClInclude Include="TextureMgr.h">
+      <Filter>98,Manager\02.TextureMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Player.cpp">
@@ -76,6 +88,9 @@
     </ClCompile>
     <ClCompile Include="DeviceMgr.cpp">
       <Filter>98,Manager\01.DeviceMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureMgr.cpp">
+      <Filter>98,Manager\02.TextureMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

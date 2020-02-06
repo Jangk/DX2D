@@ -89,10 +89,14 @@ void DeviceMgr::Render_Begin()
 		// Draw
 		m_pGraphicDev->DrawPrimitive(D3DPT_TRIANGLELIST, 0, 1);
 	}
+	// D3DXSPRITE_ALPHABLEND 를 넣어야 투명한 부분 이미지화 가능
+	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
 }
 
 void DeviceMgr::Render_End()
 {
+	m_pSprite->End();
+
 	// Render 끝
 	m_pGraphicDev->EndScene();
 	
@@ -102,12 +106,15 @@ void DeviceMgr::Render_End()
 
 void DeviceMgr::Release()
 {	// 메모리 해제 순서는 생성한 순서의 역순으로 해야된다.
-	if(m_pGraphicDev != NULL)
-		m_pGraphicDev->Release();
-	if(m_pSDK != NULL)
-		m_pSDK->Release();
-	if (m_VB != NULL)
-		m_VB->Release();
+	// shared_ptr이라 ref count가 0이 되야 메모리 해제.
+	if(m_pSprite->Release())
+		::MessageBox(0, L"Sprite Error", 0, 0);
+	if (m_VB->Release())
+		::MessageBox(0, L"Vertex Buffer Release Error", 0, 0);
+	if(m_pGraphicDev->Release())
+		::MessageBox(0, L"GraphicDev Release Error", 0, 0);
+	if(m_pSDK->Release())
+		::MessageBox(0, L"SDK Release Error", 0, 0);
 }
 
 void DeviceMgr::InitVertex()
