@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Player.h"
 #include "MainGame.h"
+#include "SingleTexture.h"
 
 MainGame::MainGame() : m_pPlayer(nullptr), m_pKeyMgr(CKeyMgr::GetInstance()), m_pDeviceMgr(DeviceMgr::GetInstance())
 {
@@ -26,6 +27,21 @@ void MainGame::Render()
 {
 	Rectangle(m_hDC, 0, 0, WINCX, WINCY);
 	m_pDeviceMgr->Render_Begin();
+
+	// 모든 렌더는 이 사이에서 렌더 호출
+	const TEX_INFO* pTexInfo = m_pSingleTex->GetTexInfo();
+	NULL_CHECK(pTexInfo);
+	
+	float fCenterX = pTexInfo->tImgInfo.Width * 0.5f;
+	float fCenterY = pTexInfo->tImgInfo.Height * 0.5f;
+	
+	m_pDeviceMgr->GetSprite()->Draw(pTexInfo->pTexture,
+		NULL, 
+		&D3DXVECTOR3(0, 0, 1),
+		&D3DXVECTOR3(0, 0, 1), 
+		D3DCOLOR_XRGB(255, 255, 255));
+	
+
 	m_pDeviceMgr->Render_End();
 }
 
@@ -36,7 +52,12 @@ HRESULT MainGame::Initialize()
 	m_pPlayer = Player::Create();
 	NULL_CHECK_MSG_RETURN(m_pPlayer, L"Player Create Failed", E_FAIL);
 
-	DeviceMgr::GetInstance()->InitDevice(MODE_FULL);
+	HRESULT hr = DeviceMgr::GetInstance()->InitDevice(MODE_WIN);
+	FAILED_CHECK_MSG_RETURN(hr, L"디바이스 초기화 에러", E_FAIL);
+
+	m_pSingleTex = SingleTexture::Create(
+		m_pDeviceMgr->GetDevice(), L"../Texture/Cube.png");
+	NULL_CHECK_MSG_RETURN(m_pSingleTex, L"Cube LoadTexture Failed", E_FAIL);
 
 	return S_OK;
 }

@@ -25,11 +25,14 @@
     <Filter Include="98,Manager\02.TextureMgr">
       <UniqueIdentifier>{c9abcff7-6f71-4ef2-a8dd-8915e16160cc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="98,Manager\02.TextureMgr\00.SingleTexture">
-      <UniqueIdentifier>{d2a3cfc0-5b5b-47d4-8c07-85d2e99c896c}</UniqueIdentifier>
+    <Filter Include="98,Manager\02.TextureMgr\Texture">
+      <UniqueIdentifier>{d44bc366-fe72-4b95-b4b0-e5c6fa8ba9aa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="98,Manager\02.TextureMgr\01.MultiTexture">
+    <Filter Include="98,Manager\02.TextureMgr\Texture\01.MultiTexture">
       <UniqueIdentifier>{332711ab-1b71-440c-a99f-50025b46e00b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98,Manager\02.TextureMgr\Texture\00.SingleTexture">
+      <UniqueIdentifier>{d2a3cfc0-5b5b-47d4-8c07-85d2e99c896c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -66,6 +69,15 @@
     <ClInclude Include="TextureMgr.h">
       <Filter>98,Manager\02.TextureMgr</Filter>
     </ClInclude>
+    <ClInclude Include="MultiTexture.h">
+      <Filter>98,Manager\02.TextureMgr\Texture\01.MultiTexture</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>98,Manager\02.TextureMgr\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="SingleTexture.h">
+      <Filter>98,Manager\02.TextureMgr\Texture\00.SingleTexture</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Player.cpp">
@@ -91,6 +103,15 @@
     </ClCompile>
     <ClCompile Include="TextureMgr.cpp">
       <Filter>98,Manager\02.TextureMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="MultiTexture.cpp">
+      <Filter>98,Manager\02.TextureMgr\Texture\01.MultiTexture</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>98,Manager\02.TextureMgr\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="SingleTexture.cpp">
+      <Filter>98,Manager\02.TextureMgr\Texture\00.SingleTexture</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

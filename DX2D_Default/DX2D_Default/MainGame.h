@@ -1,5 +1,6 @@
 #pragma once
 class Player;
+class SingleTexture;
 class MainGame
 {
 private:
@@ -26,5 +27,6 @@ private:
 	Player* m_pPlayer;
 	CKeyMgr* m_pKeyMgr;
 	DeviceMgr* m_pDeviceMgr;
+	SingleTexture* m_pSingleTex;
 };
 

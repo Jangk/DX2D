@@ -13,6 +13,16 @@ DeviceMgr::~DeviceMgr()
 	Release();
 }
 
+LPDIRECT3DDEVICE9 DeviceMgr::GetDevice() const
+{
+	return m_pGraphicDev;
+}
+
+LPD3DXSPRITE DeviceMgr::GetSprite() const
+{
+	return m_pSprite;
+}
+
 HRESULT DeviceMgr::InitDevice(DISPLAY_MODE eMode)
 {	
 	// 장치 초기화
@@ -66,8 +76,12 @@ HRESULT DeviceMgr::InitDevice(DISPLAY_MODE eMode)
 	FAILED_CHECK_MSG_RETURN(hr, L"CreateDevice Failed", E_FAIL);
 
 
+	// m_pSprite 생성
+	hr = D3DXCreateSprite(m_pGraphicDev, &m_pSprite);
+	FAILED_CHECK_MSG_RETURN(hr, L"D3DXCreateSprite Failed", E_FAIL);
+
+
 	// TestOnly
-	
 	InitVertex();
 	return S_OK;
 }
@@ -128,7 +142,7 @@ void DeviceMgr::InitVertex()
 
 	// D3DFVF_CUSTOMVERTEX는 struct에 내가 직접 define 정의한것.
 	m_pGraphicDev->CreateVertexBuffer(3 * sizeof(CUSTOMVERTEX), 0, D3DFVF_CUSTOMVERTEX,
-									 D3DPOOL_DEFAULT, &m_VB, NULL);
+									  D3DPOOL_DEFAULT, &m_VB, NULL);
 
 	VOID* pVertices = nullptr;
 	// 정점버퍼에 lock을 걸어 포인터를 얻어옴.

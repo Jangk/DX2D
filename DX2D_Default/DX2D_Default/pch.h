@@ -29,3 +29,4 @@
 // 매니저
 #include "KeyMgr.h"
 #include "DeviceMgr.h"
+#include "TextureMgr.h"
