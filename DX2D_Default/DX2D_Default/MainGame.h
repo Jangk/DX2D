@@ -1,5 +1,10 @@
 #pragma once
 class Player;
+class SingleTexture;
+class MultiTexture;
+
+
+class Tile;
 class MainGame
 {
 private:
@@ -7,6 +12,9 @@ private:
 
 public:
 	~MainGame();
+
+public :
+	void ColMouse();
 
 public:
 	void Update();
@@ -21,10 +29,19 @@ public:
 	static MainGame* Create();
 
 private:
-	HDC m_hDC;
-
-	Player* m_pPlayer;
 	CKeyMgr* m_pKeyMgr;
 	DeviceMgr* m_pDeviceMgr;
+	TextureMgr* m_pTextureMgr;
+	
+	
+	int m_iIndex = 0;
+
+
+	vector<Tile*> m_VecTile;
+
+
+	// TestOnly;
+	Tile* Test;
+	HDC hdc;
 };
 

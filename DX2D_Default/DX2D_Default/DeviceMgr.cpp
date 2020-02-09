@@ -13,6 +13,16 @@ DeviceMgr::~DeviceMgr()
 	Release();
 }
 
+LPDIRECT3DDEVICE9 DeviceMgr::GetDevice() const
+{
+	return m_pGraphicDev;
+}
+
+LPD3DXSPRITE DeviceMgr::GetSprite() const
+{
+	return m_pSprite;
+}
+
 HRESULT DeviceMgr::InitDevice(DISPLAY_MODE eMode)
 {	
 	// 장치 초기화
@@ -66,9 +76,11 @@ HRESULT DeviceMgr::InitDevice(DISPLAY_MODE eMode)
 	FAILED_CHECK_MSG_RETURN(hr, L"CreateDevice Failed", E_FAIL);
 
 
-	// TestOnly
-	
-	InitVertex();
+	// m_pSprite 생성
+	hr = D3DXCreateSprite(m_pGraphicDev, &m_pSprite);
+	FAILED_CHECK_MSG_RETURN(hr, L"D3DXCreateSprite Failed", E_FAIL);
+
+
 	return S_OK;
 }
 
@@ -82,17 +94,16 @@ void DeviceMgr::Render_Begin()
 	// Render 시작
 	if(SUCCEEDED(m_pGraphicDev->BeginScene()));
 	{
-		// 정점 버퍼를 디바이스에 연결
-		m_pGraphicDev->SetStreamSource(0, m_VB, 0, sizeof(CUSTOMVERTEX));
-		// FVF 설정
-		m_pGraphicDev->SetFVF(D3DFVF_CUSTOMVERTEX);
-		// Draw
-		m_pGraphicDev->DrawPrimitive(D3DPT_TRIANGLELIST, 0, 1);
+
 	}
+	// D3DXSPRITE_ALPHABLEND 를 넣어야 투명한 부분 이미지화 가능
+	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
 }
 
 void DeviceMgr::Render_End()
 {
+	m_pSprite->End();
+
 	// Render 끝
 	m_pGraphicDev->EndScene();
 	
@@ -102,33 +113,11 @@ void DeviceMgr::Render_End()
 
 void DeviceMgr::Release()
 {	// 메모리 해제 순서는 생성한 순서의 역순으로 해야된다.
-	if(m_pGraphicDev != NULL)
-		m_pGraphicDev->Release();
-	if(m_pSDK != NULL)
-		m_pSDK->Release();
-	if (m_VB != NULL)
-		m_VB->Release();
+	// shared_ptr이라 ref count가 0이 되야 메모리 해제.
+	if(m_pSprite->Release())
+		::MessageBox(0, L"Sprite Error", 0, 0);
+	if(m_pGraphicDev->Release())
+		::MessageBox(0, L"GraphicDev Release Error", 0, 0);
+	if(m_pSDK->Release())
+		::MessageBox(0, L"SDK Release Error", 0, 0);
 }
-
-void DeviceMgr::InitVertex()
-{
-	CUSTOMVERTEX vertexes[] =
-	{
-		{150.f,  50.f, 0.5f, 1.0f, 0xffff0000},
-		{250.f, 250.f, 0.5f, 1.0f, 0xffffff00},
-		{ 50.f, 250.f, 0.5f, 1.0f, 0xff00ffff}
-	};
-
-	// D3DFVF_CUSTOMVERTEX는 struct에 내가 직접 define 정의한것.
-	m_pGraphicDev->CreateVertexBuffer(3 * sizeof(CUSTOMVERTEX), 0, D3DFVF_CUSTOMVERTEX,
-									 D3DPOOL_DEFAULT, &m_VB, NULL);
-
-	VOID* pVertices = nullptr;
-	// 정점버퍼에 lock을 걸어 포인터를 얻어옴.
-	//이부분 외않대지
-	m_VB->Lock(0, sizeof(vertexes), (void**)vertexes, 0);
-	//memcpy_s(pVertices, sizeof(pVertices), vertexes, sizeof(vertexes));
-	m_VB->Unlock();
-	 
-}
-

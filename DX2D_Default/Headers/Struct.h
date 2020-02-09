@@ -11,7 +11,11 @@ typedef struct tagInfo
 }INFO;
 
 
-
+typedef struct tagTextureInfo
+{
+	LPDIRECT3DTEXTURE9 pTexture;
+	D3DXIMAGE_INFO tImgInfo;
+}TEX_INFO;
 
 // TestOnly
 struct CUSTOMVERTEX

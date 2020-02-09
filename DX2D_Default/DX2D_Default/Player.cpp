@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "Player.h"
 
-Player::Player() :m_fAngle(0), m_pKeyMgr(CKeyMgr::GetInstance())
+Player::Player() : m_pKeyMgr(CKeyMgr::GetInstance())
 {
 	ZeroMemory(m_vOrigin, sizeof(m_vOrigin));
 	ZeroMemory(m_vConvert, sizeof(m_vConvert));
@@ -41,23 +41,9 @@ void Player::LateUpdate()
 	D3DXVec3Normalize(&m_tInfo.vDir, &m_tInfo.vDir);
 }
 
-void Player::Render(HDC hDC)	
+void Player::Render()	
 {
-	GameObject::UpdateRect();
-	MoveToEx(hDC, (int)m_vConvert[0].x, (int)m_vConvert[0].y, nullptr);
-	LineTo(hDC, (int)m_vConvert[1].x, (int)m_vConvert[1].y);
-	LineTo(hDC, (int)m_vConvert[2].x, (int)m_vConvert[2].y);
-	LineTo(hDC, (int)m_vConvert[3].x, (int)m_vConvert[3].y);
-	LineTo(hDC, (int)m_vConvert[0].x, (int)m_vConvert[0].y);
-
-	for (int i = 0; i < 2; ++i)
-		Ellipse(hDC, int(m_vConvert[i].x - 10.f), int(m_vConvert[i].y - 10.f),
-			int(m_vConvert[i].x + 10.f), int(m_vConvert[i].y + 10.f));
-
-	TCHAR szBuf[64] = L"";
-	swprintf_s(szBuf, L"°¢µµ: %0.1f", m_fAngle);
-	RECT rc = { 100, 100, 200, 200 };
-	DrawText(hDC, szBuf, lstrlen(szBuf), &rc, DT_NOCLIP);
+	
 }
 
 HRESULT Player::Initialize()

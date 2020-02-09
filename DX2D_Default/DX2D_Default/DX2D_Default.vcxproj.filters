@@ -22,6 +22,21 @@
     <Filter Include="98,Manager\01.DeviceMgr">
       <UniqueIdentifier>{70e2edb7-90b3-4479-a255-d5b8f4134ce9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="98,Manager\02.TextureMgr">
+      <UniqueIdentifier>{c9abcff7-6f71-4ef2-a8dd-8915e16160cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98,Manager\02.TextureMgr\Texture">
+      <UniqueIdentifier>{d44bc366-fe72-4b95-b4b0-e5c6fa8ba9aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98,Manager\02.TextureMgr\Texture\01.MultiTexture">
+      <UniqueIdentifier>{332711ab-1b71-440c-a99f-50025b46e00b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98,Manager\02.TextureMgr\Texture\00.SingleTexture">
+      <UniqueIdentifier>{d2a3cfc0-5b5b-47d4-8c07-85d2e99c896c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.GameObject\99.Tile">
+      <UniqueIdentifier>{a58021aa-4ac5-4cae-b1ac-0517e65c0590}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h">
@@ -54,6 +69,21 @@
     <ClInclude Include="DeviceMgr.h">
       <Filter>98,Manager\01.DeviceMgr</Filter>
     </ClInclude>
+    <ClInclude Include="TextureMgr.h">
+      <Filter>98,Manager\02.TextureMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="MultiTexture.h">
+      <Filter>98,Manager\02.TextureMgr\Texture\01.MultiTexture</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>98,Manager\02.TextureMgr\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="SingleTexture.h">
+      <Filter>98,Manager\02.TextureMgr\Texture\00.SingleTexture</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile.h">
+      <Filter>01.GameObject\99.Tile</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Player.cpp">
@@ -76,6 +106,21 @@
     </ClCompile>
     <ClCompile Include="DeviceMgr.cpp">
       <Filter>98,Manager\01.DeviceMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureMgr.cpp">
+      <Filter>98,Manager\02.TextureMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="MultiTexture.cpp">
+      <Filter>98,Manager\02.TextureMgr\Texture\01.MultiTexture</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>98,Manager\02.TextureMgr\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="SingleTexture.cpp">
+      <Filter>98,Manager\02.TextureMgr\Texture\00.SingleTexture</Filter>
+    </ClCompile>
+    <ClCompile Include="Tile.cpp">
+      <Filter>01.GameObject\99.Tile</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

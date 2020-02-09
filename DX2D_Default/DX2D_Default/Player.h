@@ -11,7 +11,7 @@ public:
 public:
 	void Update();
 	void LateUpdate();
-	void Render(HDC hDC);
+	void Render();
 
 private:
 	HRESULT Initialize();
@@ -22,7 +22,7 @@ public:
 
 	D3DXVECTOR3 m_vOrigin[4];
 	D3DXVECTOR3 m_vConvert[4];
-	float m_fAngle;
+	
 	
 	
 	CKeyMgr* m_pKeyMgr;

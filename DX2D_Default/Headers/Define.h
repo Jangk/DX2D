@@ -2,8 +2,13 @@
 #ifndef __DEFINE_H__
 #define __DEFINE_H__
 
-#define WINCX 1280
+#define WINCX 1200
 #define WINCY 800
+
+
+#define MIN_STR 64
+#define MID_STR 128
+#define MAX_STR 256
 
 
 #define PI 3.141592f
