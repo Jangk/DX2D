@@ -1,13 +1,16 @@
 #pragma once
 
-#define WINCX 800
-#define WINCY 600
+#define WINCX 1200
+#define WINCY 900
 
 #define TILEX 20
 #define TILEY 30
 
 #define TILECX 130
 #define TILECY 68
+
+#define SELECTBUTTONCX 100
+#define SELECTBUTTONCY 100
 
 #define MIN_STR 64
 #define MID_STR 128

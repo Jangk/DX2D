@@ -146,6 +146,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CharSelect.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="DeviceMgr.h" />
     <ClInclude Include="FrameMgr.h" />
@@ -172,6 +173,7 @@
     <ClInclude Include="TimeMgr.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CharSelect.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="DeviceMgr.cpp" />
     <ClCompile Include="FrameMgr.cpp" />

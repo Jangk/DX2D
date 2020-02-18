@@ -23,8 +23,9 @@ public:
 	static CPlayer* Create();
 
 private:
-	INFO			m_tInfo;
 	FRAME			m_tFrame;
 	CKeyMgr*		m_pKeyMgr;
+
+	PLAYER_STATE	m_eState;
 };
 

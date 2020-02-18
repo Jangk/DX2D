@@ -14,6 +14,7 @@ typedef struct tagTextureInfo
 {
 	LPDIRECT3DTEXTURE9 pTexture;
 	D3DXIMAGE_INFO tImgInfo;
+	int iImageMax;
 }TEX_INFO;
 
 typedef struct tagTileInfo
@@ -29,3 +30,12 @@ typedef struct tagFrame
 	float fCurFrame;
 	float fMaxFrame;
 }FRAME;
+
+
+typedef struct tagSelectButtonInfo
+{
+	D3DXVECTOR3 vPos;
+	PLAYABLE_CHARACTER eChar;
+	wstring strCharName;
+}BUTTON_INFO;
+

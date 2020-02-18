@@ -61,11 +61,26 @@
     <Filter Include="98.Managers\07.SceneMgr\00.Scene\00.Logo">
       <UniqueIdentifier>{566f7902-92ae-45f2-a518-d367cc3e8d63}</UniqueIdentifier>
     </Filter>
-    <Filter Include="98.Managers\07.SceneMgr\00.Scene\01.Stage">
-      <UniqueIdentifier>{6a2b2443-35f6-4247-afd4-0d40a80b0c76}</UniqueIdentifier>
-    </Filter>
     <Filter Include="98.Managers\08.FrameMgr">
       <UniqueIdentifier>{0f5129c2-4861-43a1-ab64-c31efa360dc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98.Managers\07.SceneMgr\00.Scene\01.CharSelect">
+      <UniqueIdentifier>{3105d181-bc26-4ef3-a543-d3a84924f654}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98.Managers\07.SceneMgr\00.Scene\02.WorldMap">
+      <UniqueIdentifier>{fa7e7d02-e8a6-408f-8640-b437ce386749}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98.Managers\07.SceneMgr\00.Scene\04.Field">
+      <UniqueIdentifier>{6bac75b6-2499-49df-b266-2f74ef159ccd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98.Managers\07.SceneMgr\00.Scene\05.Event">
+      <UniqueIdentifier>{4c900ec3-c14a-41eb-9180-db743b40d1c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98.Managers\07.SceneMgr\00.Scene\06.Shop">
+      <UniqueIdentifier>{a63d96ae-86fc-4b73-997a-e30ceacd96a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98.Managers\07.SceneMgr\00.Scene\03.Stage">
+      <UniqueIdentifier>{6a2b2443-35f6-4247-afd4-0d40a80b0c76}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -136,10 +151,13 @@
       <Filter>98.Managers\07.SceneMgr\00.Scene\00.Logo</Filter>
     </ClInclude>
     <ClInclude Include="Stage.h">
-      <Filter>98.Managers\07.SceneMgr\00.Scene\01.Stage</Filter>
+      <Filter>98.Managers\07.SceneMgr\00.Scene\03.Stage</Filter>
     </ClInclude>
     <ClInclude Include="FrameMgr.h">
       <Filter>98.Managers\08.FrameMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="CharSelect.h">
+      <Filter>98.Managers\07.SceneMgr\00.Scene\01.CharSelect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -204,10 +222,13 @@
       <Filter>98.Managers\07.SceneMgr\00.Scene\00.Logo</Filter>
     </ClCompile>
     <ClCompile Include="Stage.cpp">
-      <Filter>98.Managers\07.SceneMgr\00.Scene\01.Stage</Filter>
+      <Filter>98.Managers\07.SceneMgr\00.Scene\03.Stage</Filter>
     </ClCompile>
     <ClCompile Include="FrameMgr.cpp">
       <Filter>98.Managers\08.FrameMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CharSelect.cpp">
+      <Filter>98.Managers\07.SceneMgr\00.Scene\01.CharSelect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

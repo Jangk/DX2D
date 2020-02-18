@@ -3,7 +3,8 @@
 #include "ScrollMgr.h"
 
 CPlayer::CPlayer()
-	: m_pKeyMgr(CKeyMgr::GetInstance())
+	: m_pKeyMgr(CKeyMgr::GetInstance()),
+	m_eState(PLAYER_IDLE)
 {
 	ZeroMemory(&m_tInfo, sizeof(INFO));
 	ZeroMemory(&m_tFrame, sizeof(FRAME));
@@ -46,7 +47,18 @@ void CPlayer::LateUpdate()
 
 void CPlayer::Render()
 {
-	const TEX_INFO* pTexInfo = m_pTextureMgr->GetTexInfo(L"Player", L"Dash", (int)m_tFrame.fCurFrame);
+	wstring strState;
+	switch (m_eState)
+	{
+	case PLAYER_IDLE:
+		strState = L"Idle";
+		break;
+	case PLAYER_HIT:
+		strState = L"Hit";
+		break;
+	}
+
+	const TEX_INFO* pTexInfo = m_pTextureMgr->GetTexInfo(L"Player", strState, (int)m_tFrame.fCurFrame);
 	NULL_CHECK(pTexInfo);
 
 	float fCenterX = pTexInfo->tImgInfo.Width * 0.5f;
@@ -59,8 +71,6 @@ void CPlayer::Render()
 
 HRESULT CPlayer::Initialize()
 {
-	// 행렬 초기화 -> 항등행렬(I)
-	//CMathMgr::MyMatrixIdentity(&m_tInfo.matWorld);
 	D3DXMatrixIdentity(&m_tInfo.matWorld); // 다이렉트 항등행렬 함수
 
 	m_tInfo.vPos = { 400.f, 300.f, 0.f }; // x, y, z

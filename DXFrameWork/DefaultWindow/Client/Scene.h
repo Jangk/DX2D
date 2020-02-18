@@ -22,5 +22,7 @@ protected:
 	CTextureMgr*	m_pTextureMgr;
 	CTimeMgr*		m_pTimeMgr;
 	CSceneMgr*		m_pSceneMgr;
+	CObjectMgr*		m_pObjectMgr;
+	CKeyMgr*		m_pKeyMgr;
 };
 

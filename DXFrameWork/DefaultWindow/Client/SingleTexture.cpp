@@ -64,6 +64,7 @@ HRESULT CSingleTexture::LoadTexture(
 
 void CSingleTexture::Release()
 {
+
 	m_pTexInfo->pTexture->Release();
 	SafeDelete(m_pTexInfo);
 }

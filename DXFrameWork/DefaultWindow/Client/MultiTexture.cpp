@@ -21,8 +21,9 @@ const TEX_INFO* CMultiTexture::GetTexInfo(
 	if (m_mapMulti.end() == iter_find)
 		return nullptr;
 
-	if(iter_find->second.size() <= wIndex)
-		return nullptr;
+	if (iter_find->second.size() <= wIndex)
+		//return nullptr;
+		return iter_find->second[iter_find->second.size()-1];			// 장재완 수정 인덱스값이 이미지 양보다 크면 마지막 이미지 출력
 
 	return iter_find->second[wIndex];
 }
@@ -76,6 +77,7 @@ HRESULT CMultiTexture::LoadTexture(
 		pTexInfo = new TEX_INFO;
 		pTexInfo->pTexture = pTexture;
 		pTexInfo->tImgInfo = tImgInfo;
+		pTexInfo->iImageMax = wCnt;
 
 		m_mapMulti[wstrStateKey].push_back(pTexInfo);
 	}

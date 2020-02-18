@@ -22,6 +22,5 @@ public:
 	static CStage* Create();
 
 private:
-	CObjectMgr*	m_pObjectMgr;
 };
 

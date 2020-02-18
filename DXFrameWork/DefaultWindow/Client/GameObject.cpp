@@ -13,3 +13,8 @@ CGameObject::CGameObject()
 CGameObject::~CGameObject()
 {
 }
+
+void CGameObject::SetPos(float x, float y, float z)
+{
+	m_tInfo.vPos = {x, y ,z };
+}
