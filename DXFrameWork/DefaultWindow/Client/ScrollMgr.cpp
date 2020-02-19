@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "ScrollMgr.h"
 
+IMPLEMENT_SINGLETON(CScrollMgr)
+
 D3DXVECTOR3 CScrollMgr::m_vScrollPos = { 0.f, 0.f, 0.f };
 
 CScrollMgr::CScrollMgr()

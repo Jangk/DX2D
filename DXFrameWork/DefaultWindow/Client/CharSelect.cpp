@@ -224,7 +224,7 @@ void CCharSelect::IsPicking()
 						FAILED_CHECK_MSG(E_FAIL, L"미구현된 캐릭터");
 						break;
 					case CHARACTER_SILENT:
-						m_pSceneMgr->SceneChange(SCENE_CHARECTER_SELECTE, SCENE_STAGE);
+						m_pSceneMgr->SceneChange(SCENE_CHARECTER_SELECTE, SCENE_WORLD_MAP);
 						break;
 					case CHARACTER_DEFECT:
 						FAILED_CHECK_MSG(E_FAIL, L"미구현된 캐릭터");

@@ -53,6 +53,7 @@ using namespace std;
 #include "TimeMgr.h"
 #include "SceneMgr.h"
 #include "FrameMgr.h"
+#include "ScrollMgr.h"
 
 #ifdef _DEBUG
 //#include "vld.h"

@@ -8,7 +8,8 @@ CScene::CScene()
 	m_pTimeMgr(CTimeMgr::GetInstance()),
 	m_pSceneMgr(CSceneMgr::GetInstance()),
 	m_pObjectMgr(CObjectMgr::GetInstance()),
-	m_pKeyMgr(CKeyMgr::GetInstance())
+	m_pKeyMgr(CKeyMgr::GetInstance()),
+	m_pScrollMgr(CScrollMgr::GetInstance())
 {
 }
 

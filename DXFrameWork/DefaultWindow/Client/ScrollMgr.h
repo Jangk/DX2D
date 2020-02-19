@@ -1,6 +1,8 @@
 #pragma once
 class CScrollMgr
 {
+	DECLARE_SINGLETON(CScrollMgr)
+
 private:
 	CScrollMgr();
 	~CScrollMgr();

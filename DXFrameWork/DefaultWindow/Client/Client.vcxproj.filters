@@ -159,6 +159,9 @@
     <ClInclude Include="CharSelect.h">
       <Filter>98.Managers\07.SceneMgr\00.Scene\01.CharSelect</Filter>
     </ClInclude>
+    <ClInclude Include="WorldMap.h">
+      <Filter>98.Managers\07.SceneMgr\00.Scene\02.WorldMap</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -229,6 +232,9 @@
     </ClCompile>
     <ClCompile Include="CharSelect.cpp">
       <Filter>98.Managers\07.SceneMgr\00.Scene\01.CharSelect</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldMap.cpp">
+      <Filter>98.Managers\07.SceneMgr\00.Scene\02.WorldMap</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

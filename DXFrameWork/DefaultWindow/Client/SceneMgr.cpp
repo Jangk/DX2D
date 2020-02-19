@@ -3,6 +3,7 @@
 #include "Logo.h"
 #include "Stage.h"
 #include "CharSelect.h"
+#include "WorldMap.h"
 
 IMPLEMENT_SINGLETON(CSceneMgr)
 
@@ -30,6 +31,9 @@ HRESULT CSceneMgr::SceneChange(SCENE_TYPE eCurType, SCENE_TYPE eNextType)
 			break;
 		case SCENE_CHARECTER_SELECTE:
 			m_pScene = CCharSelect::Create();
+			break;
+		case SCENE_WORLD_MAP:
+			m_pScene = CWorldMap::Create();
 			break;
 		case SCENE_STAGE:
 			m_pScene = CStage::Create();
