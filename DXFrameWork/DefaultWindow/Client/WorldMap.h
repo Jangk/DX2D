@@ -17,7 +17,8 @@ public:
 
 public:
 	static CWorldMap* Create();
-
+	int ScrollScreen();
+	HRESULT LoadResources();
 
 public:
 	CScrollMgr* m_pScrollMgr;

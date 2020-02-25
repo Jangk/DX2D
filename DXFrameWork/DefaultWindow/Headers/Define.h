@@ -3,6 +3,9 @@
 #define WINCX 1200
 #define WINCY 900
 
+#define WORLDCX 1200
+#define WORLDCY 700				// 이동범위 WINCX + WORLDCY 이라서  현재 1600
+
 #define TILEX 20
 #define TILEY 30
 

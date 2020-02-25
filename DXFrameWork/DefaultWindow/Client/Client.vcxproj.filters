@@ -70,9 +70,6 @@
     <Filter Include="98.Managers\07.SceneMgr\00.Scene\02.WorldMap">
       <UniqueIdentifier>{fa7e7d02-e8a6-408f-8640-b437ce386749}</UniqueIdentifier>
     </Filter>
-    <Filter Include="98.Managers\07.SceneMgr\00.Scene\04.Field">
-      <UniqueIdentifier>{6bac75b6-2499-49df-b266-2f74ef159ccd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="98.Managers\07.SceneMgr\00.Scene\05.Event">
       <UniqueIdentifier>{4c900ec3-c14a-41eb-9180-db743b40d1c5}</UniqueIdentifier>
     </Filter>
@@ -81,6 +78,18 @@
     </Filter>
     <Filter Include="98.Managers\07.SceneMgr\00.Scene\03.Stage">
       <UniqueIdentifier>{6a2b2443-35f6-4247-afd4-0d40a80b0c76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.GameObject\02.Card">
+      <UniqueIdentifier>{cf8602fe-9c14-4bfe-b433-5075c9b7e0b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.GameObject\02.Card\00.Attack">
+      <UniqueIdentifier>{23c5fc50-74a0-42f6-9b5c-4470a4713d9b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.GameObject\02.Card\01.Skill">
+      <UniqueIdentifier>{dc7281ec-8556-4571-b341-f1c39d36b82b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.GameObject\02.Card\02.Power">
+      <UniqueIdentifier>{fa5d9def-b19f-45b6-a9c3-a302ea724e0b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -162,6 +171,12 @@
     <ClInclude Include="WorldMap.h">
       <Filter>98.Managers\07.SceneMgr\00.Scene\02.WorldMap</Filter>
     </ClInclude>
+    <ClInclude Include="Card.h">
+      <Filter>01.GameObject\02.Card</Filter>
+    </ClInclude>
+    <ClInclude Include="AttackCard.h">
+      <Filter>01.GameObject\02.Card\00.Attack</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -235,6 +250,12 @@
     </ClCompile>
     <ClCompile Include="WorldMap.cpp">
       <Filter>98.Managers\07.SceneMgr\00.Scene\02.WorldMap</Filter>
+    </ClCompile>
+    <ClCompile Include="Card.cpp">
+      <Filter>01.GameObject\02.Card</Filter>
+    </ClCompile>
+    <ClCompile Include="AttackCard.cpp">
+      <Filter>01.GameObject\02.Card\00.Attack</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

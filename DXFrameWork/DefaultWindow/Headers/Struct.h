@@ -6,6 +6,11 @@ typedef struct tagInfo
 	D3DXVECTOR3 vDir;	// 방향벡터
 	D3DXVECTOR3 vLook;
 	D3DXVECTOR3 vSize;
+	D3DXMATRIX matScale;
+	D3DXMATRIX matRotate;
+	D3DXMATRIX matTrans;
+	D3DXMATRIX matGRotate;
+	D3DXMATRIX matParents;
 	D3DXMATRIX matWorld; // 월드행렬 = 스(케일) * 자(전) * 이(동) * 공(전) * 부(모행렬)
 
 }INFO;

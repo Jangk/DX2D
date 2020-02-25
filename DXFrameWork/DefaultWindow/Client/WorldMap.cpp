@@ -3,10 +3,6 @@
 #include "Mouse.h"
 
 
-//해야할것 
-//1. 월드맵 맵 스크롤 적용받게할것
-//2. 월드맵이 top mid bot 연결되게 해야됨 (3개 크기가 모두 동일)
-
 CWorldMap::CWorldMap() 
 	: m_pScrollMgr(CScrollMgr::GetInstance()->GetInstance())
 {
@@ -19,13 +15,7 @@ CWorldMap::~CWorldMap()
 
 int CWorldMap::Update()
 {
-	float fMoveSpeed = 200.f * m_pTimeMgr->GetDelta();
-
-	if (0.f + 200.f > CMouse::GetMousePos().y)
-		CScrollMgr::MoveScrollPos(D3DXVECTOR3(0.f, -fMoveSpeed, 0.f));
-	if ((float)WINCY -200.f < CMouse::GetMousePos().y)
-		CScrollMgr::MoveScrollPos(D3DXVECTOR3(0.f, fMoveSpeed, 0.f));
-	return NO_EVENT;
+	return ScrollScreen();
 }
 
 void CWorldMap::LateUpdate()
@@ -92,7 +82,7 @@ HRESULT CWorldMap::Initialize()
 
 	// top mid bottom 은 크키가 같아서 가능.
 	const TEX_INFO* info = m_pTextureMgr->GetTexInfo(L"WorldMapMid");
-	m_fImageScaleX	= 0.5f;
+	m_fImageScaleX	= 0.5f;						// 월드맵 이미지 배율
 	m_fImageScaleY	= 0.5f;
 	m_fWorldMapCX	= info->tImgInfo.Width;
 	m_fWorldMapCY	= info->tImgInfo.Height;
@@ -101,7 +91,7 @@ HRESULT CWorldMap::Initialize()
 	// 월드맵 위치 정보
 	D3DVECTOR* temp;
 	temp	= new D3DVECTOR;
-	*temp	= { WINCX * 0.5f, WINCY * 0.5f, 0 };
+	*temp	= { WINCX * 0.5f, WINCY * 0.3f, 0 };
 	m_vecWorldMap.push_back(temp);
 	for (int i = 0; i < 1/*월드맵 중간에 추가할 갯수*/; ++i)
 	{
@@ -128,4 +118,17 @@ CWorldMap * CWorldMap::Create()
 		return nullptr;
 	}
 	return pInstance;
+}
+
+int CWorldMap::ScrollScreen()
+{
+	float fMoveSpeed = 400.f * m_pTimeMgr->GetDelta();
+	D3DVECTOR vScrollPos = m_pScrollMgr->GetScrollPos();
+
+	// 화면 스크롤
+	if (0.f + 200.f > CMouse::GetMousePos().y)
+		m_pScrollMgr->MoveScrollPos(D3DXVECTOR3(0.f, -fMoveSpeed, 0.f));
+	if ((float)WINCY - 200.f < CMouse::GetMousePos().y)
+		m_pScrollMgr->MoveScrollPos(D3DXVECTOR3(0.f, fMoveSpeed, 0.f));
+	return NO_EVENT;
 }

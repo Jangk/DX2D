@@ -69,7 +69,6 @@ HRESULT CTextureMgr::LoadTexture(
 			break;
 		}
 	}	
-
 	return S_OK;
 }
 

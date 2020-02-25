@@ -50,11 +50,14 @@ void CMainGame::Render()
 }
 
 HRESULT CMainGame::Initialize()
-{
+{	
 	HRESULT hr = m_pDeviceMgr->InitDevice(MODE_WIN);
 	FAILED_CHECK_MSG_RETURN(hr, L"InitDevice Failed", E_FAIL);	
 
-	hr = m_pSceneMgr->SceneChange(SCENE_END, SCENE_LOGO);
+	// 게임시작시 카드 전부 로드. 디바이스가 초기화 된후 수행해야됨.
+	m_pSceneMgr->InitCard();
+
+	hr = m_pSceneMgr->SceneChange(SCENE_END, SCENE_STAGE);
 	FAILED_CHECK_MSG_RETURN(hr, L"Logo Change Failed", E_FAIL);
 
 	return S_OK;

@@ -56,6 +56,10 @@ void CPlayer::Render()
 	case PLAYER_HIT:
 		strState = L"Hit";
 		break;
+	case PLAYER_DEAD:
+		strState = L"Dead";
+		break;
+	// PLAYER_CAMPFIRE는 휴식씬에서만 사용
 	}
 
 	const TEX_INFO* pTexInfo = m_pTextureMgr->GetTexInfo(L"Player", strState, (int)m_tFrame.fCurFrame);
@@ -64,22 +68,19 @@ void CPlayer::Render()
 	float fCenterX = pTexInfo->tImgInfo.Width * 0.5f;
 	float fCenterY = pTexInfo->tImgInfo.Height * 0.5f;
 
+	D3DXMatrixScaling(&m_tInfo.matScale, 1, 1, 1);
+	D3DXMatrixTranslation(&m_tInfo.matTrans, m_tInfo.vPos.x, m_tInfo.vPos.y, 0);
+	m_tInfo.matWorld = m_tInfo.matScale * m_tInfo.matTrans;
 	m_pDeviceMgr->GetSprite()->SetTransform(&m_tInfo.matWorld);
 	m_pDeviceMgr->GetSprite()->Draw(pTexInfo->pTexture, nullptr, &D3DXVECTOR3(fCenterX, fCenterY, 0.f),
 		nullptr, D3DCOLOR_ARGB(255, 255, 255, 255));
 }
 
 HRESULT CPlayer::Initialize()
-{
-	D3DXMatrixIdentity(&m_tInfo.matWorld); // 다이렉트 항등행렬 함수
-
-	m_tInfo.vPos = { 400.f, 300.f, 0.f }; // x, y, z
-	m_tInfo.vDir = { 0.f, 0.f, 0.f };
-	m_tInfo.vLook = { 0.f, -1.f, 0.f };
-	m_tInfo.vSize = { 1.f, 1.f, 0.f };
-
-	m_tFrame.fCurFrame = 0.f;
-	m_tFrame.fMaxFrame = 11.f;
+{	// m_tInfo 초기화는 CGameObject 생성자에서 처리함.
+	m_tInfo.vPos		= { 400.f, 300.f, 0 };
+	m_tFrame.fCurFrame	= 0.f;
+	m_tFrame.fMaxFrame	= 11.f;
 	
 	return S_OK;
 }
@@ -91,12 +92,10 @@ void CPlayer::Release()
 CPlayer* CPlayer::Create()
 {
 	CPlayer* pInstance = new CPlayer;
-
 	if (FAILED(pInstance->Initialize()))
 	{
 		SafeDelete(pInstance);
 		return nullptr;
 	}
-
 	return pInstance;
 }

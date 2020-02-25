@@ -146,6 +146,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AttackCard.h" />
+    <ClInclude Include="Card.h" />
     <ClInclude Include="CharSelect.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="DeviceMgr.h" />
@@ -174,6 +176,8 @@
     <ClInclude Include="WorldMap.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AttackCard.cpp" />
+    <ClCompile Include="Card.cpp" />
     <ClCompile Include="CharSelect.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="DeviceMgr.cpp" />
