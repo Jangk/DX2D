@@ -19,6 +19,7 @@ private:
 
 public:
 	static CMainGame* Create();
+	HRESULT LoadImageResource();
 
 private:
 	CKeyMgr*			m_pKeyMgr;

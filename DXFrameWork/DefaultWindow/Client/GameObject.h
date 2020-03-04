@@ -20,7 +20,10 @@ protected:
 
 public:
 	void SetPos(float x, float y, float z);
-
+	void SetRotate(float angle);
+	void SetScale(float x, float y, float z);
+	const INFO& GetInfo();
+	
 
 protected:
 	CDeviceMgr*		m_pDeviceMgr;

@@ -2,11 +2,10 @@
 #include "AttackCard.h"
 
 // 해야할것 
-// 카드 테두리 3장 (스킬, 공격, 파워)
-// 카드 리본 글씨 폰트 
 
 
-CAttackCard::CAttackCard()
+CAttackCard::CAttackCard():
+	m_eAttackCardType(ATTACK_CARD_1)
 {
 }
 
@@ -21,6 +20,12 @@ int CAttackCard::Update()
 
 void CAttackCard::LateUpdate()
 {
+	if (m_bIsSelect)
+	{
+		//SetPos(m_tInfo.vPos.x, 600, 0);
+		SetRotate(0);
+		SetScale(m_fImageSacle * 2, m_fImageSacle * 2, 0);
+	}
 }
 
 void CAttackCard::Render()
@@ -31,13 +36,13 @@ void CAttackCard::Render()
 	
 	D3DXMATRIX matScale, matWorld;
 	// 카드 이미지
-	pTexInfo = m_pTextureMgr->GetTexInfo(L"Card", L"Attack", 0);
+	pTexInfo = m_pTextureMgr->GetTexInfo(L"Card", L"Attack", m_eAttackCardType);
 	NULL_CHECK(pTexInfo);
 
 	fCenterX = pTexInfo->tImgInfo.Width * 0.5f;
 	fCenterY = pTexInfo->tImgInfo.Height * 0.5f;
 	
-	D3DXMatrixTranslation(&m_tInfo.matTrans, m_tInfo.vPos.x, m_tInfo.vPos.y, 0.1);
+	D3DXMatrixTranslation(&m_tInfo.matTrans, m_tInfo.vPos.x, m_tInfo.vPos.y, m_tInfo.vPos.z + 0.01);
 	m_tInfo.matWorld = m_tInfo.matScale * m_tInfo.matRotate * m_tInfo.matTrans * m_tInfo.matGRotate * m_tInfo.matParents;
 	m_pDeviceMgr->GetSprite()->SetTransform(&m_tInfo.matWorld);
 	m_pDeviceMgr->GetSprite()->Draw(pTexInfo->pTexture, nullptr, &D3DXVECTOR3(fCenterX, fCenterY, 0.f),
@@ -51,7 +56,7 @@ void CAttackCard::Render()
 	fCenterX = pTexInfo->tImgInfo.Width * 0.5f;
 	fCenterY = pTexInfo->tImgInfo.Height * 0.5f;
 
-	D3DXMatrixTranslation(&m_tInfo.matTrans, m_tInfo.vPos.x, m_tInfo.vPos.y, 1);
+	D3DXMatrixTranslation(&m_tInfo.matTrans, m_tInfo.vPos.x, m_tInfo.vPos.y, m_tInfo.vPos.z + 0.02);
 	m_tInfo.matWorld = m_tInfo.matScale * m_tInfo.matRotate * m_tInfo.matTrans * m_tInfo.matGRotate * m_tInfo.matParents;
 	m_pDeviceMgr->GetSprite()->SetTransform(&m_tInfo.matWorld);
 	m_pDeviceMgr->GetSprite()->Draw(pTexInfo->pTexture, nullptr, &D3DXVECTOR3(fCenterX, fCenterY, 0.f),
@@ -65,7 +70,7 @@ void CAttackCard::Render()
 	fCenterX = pTexInfo->tImgInfo.Width * 0.5f;
 	fCenterY = pTexInfo->tImgInfo.Height * 0.5f;
 
-	D3DXMatrixTranslation(&m_tInfo.matTrans, m_tInfo.vPos.x, m_tInfo.vPos.y, 0);
+	D3DXMatrixTranslation(&m_tInfo.matTrans, m_tInfo.vPos.x, m_tInfo.vPos.y, m_tInfo.vPos.z + 0);
 	m_tInfo.matWorld = m_tInfo.matScale * m_tInfo.matRotate * m_tInfo.matTrans * m_tInfo.matGRotate * m_tInfo.matParents;
 	m_pDeviceMgr->GetSprite()->SetTransform(&m_tInfo.matWorld);
 	m_pDeviceMgr->GetSprite()->Draw(pTexInfo->pTexture, nullptr, &D3DXVECTOR3(fCenterX, fCenterY, 0.f),
@@ -77,9 +82,9 @@ void CAttackCard::Render()
 	NULL_CHECK(pTexInfo);
 
 	fCenterX = pTexInfo->tImgInfo.Width * 0.5f;
-	fCenterY = pTexInfo->tImgInfo.Height * 0.5f;
+	fCenterY = pTexInfo->tImgInfo.Height* 0.5f;
 
-	D3DXMatrixTranslation(&m_tInfo.matTrans, m_tInfo.vPos.x, m_tInfo.vPos.y, 0.1);
+	D3DXMatrixTranslation(&m_tInfo.matTrans, m_tInfo.vPos.x, m_tInfo.vPos.y, m_tInfo.vPos.z + 0.01);
 	m_tInfo.matWorld = m_tInfo.matScale * m_tInfo.matRotate * m_tInfo.matTrans * m_tInfo.matGRotate * m_tInfo.matParents;
 	m_pDeviceMgr->GetSprite()->SetTransform(&m_tInfo.matWorld);
 	m_pDeviceMgr->GetSprite()->Draw(pTexInfo->pTexture, nullptr, &D3DXVECTOR3(fCenterX, fCenterY, 0.f),
@@ -88,10 +93,12 @@ void CAttackCard::Render()
 
 HRESULT CAttackCard::Initialize()
 {
+	const TEX_INFO* pTexInfo = m_pTextureMgr->GetTexInfo(L"AttackBackground");
+	m_eCardType		= CARD_TYPE_ATTACK;
+	m_fCardX		= pTexInfo->tImgInfo.Width;
+	m_fCardY		= pTexInfo->tImgInfo.Height;
 	m_tInfo.vPos	= { 800.f, 300.f, 0.f }; // x, y, z
-	D3DXMatrixScaling(&m_tInfo.matScale, 0.5, 0.5, 1);
-	SetRotate(20.f);
-
+	D3DXMatrixScaling(&m_tInfo.matScale, m_fImageSacle, m_fImageSacle, 1);
 	return S_OK;
 }
 
@@ -110,7 +117,7 @@ CAttackCard * CAttackCard::Create()
 	return pInstance;
 }
 
-void CAttackCard::SetRotate(float fAngle)
+void CAttackCard::SetCard(ATTACK_CARD_TYPE type)
 {
-	D3DXMatrixRotationZ(&m_tInfo.matRotate, D3DXToRadian(fAngle));
+	m_eAttackCardType = type;
 }

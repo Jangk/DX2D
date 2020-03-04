@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "FrameMgr.h"
+#include "Mouse.h"
 
 IMPLEMENT_SINGLETON(CFrameMgr)
 
@@ -11,7 +12,6 @@ CFrameMgr::CFrameMgr()
 {
 	QueryPerformanceCounter(&m_OldTimeOne);
 	QueryPerformanceCounter(&m_OldTimeTwo);
-	QueryPerformanceCounter(&m_CurTime);
 
 	QueryPerformanceFrequency(&m_CPUTick);
 }
@@ -46,29 +46,41 @@ bool CFrameMgr::LimitFrame(float fFps)
 
 void CFrameMgr::RenderFPS()
 {
-	// FPS 출력
+	// mouse 가져옴
+	D3DXVECTOR3 mouse = CMouse::GetMousePos();
+		// FPS 출력
 	++m_iFpsCount;
 
 	m_fTimeCount2 += m_pTimeMgr->GetDelta();
 
 	if (1.f <= m_fTimeCount2) // 1초가 지났다.
 	{
-		swprintf_s(m_szFPS, L"FPS: %d", m_iFpsCount);
-
+		swprintf_s(m_szFPS, L"FPS: %d", m_iFpsCount, (int)mouse.x, (int)mouse.y);
 		m_fTimeCount2 = 0.f;
 		m_iFpsCount = 0;
 	}
-
+	swprintf_s(m_szMouse, L"MouseX : %d\nMouseY : %d", (int)mouse.x, (int)mouse.y);
+	
 	// 다이렉트 폰트 출력
 	D3DXMATRIX matTrans;
 	D3DXMatrixTranslation(&matTrans, 100.f, 100.f, 0.f);
-
 	m_pDeviceMgr->GetSprite()->SetTransform(&matTrans);
 
 	m_pDeviceMgr->GetFont()->DrawText(
 		m_pDeviceMgr->GetSprite(), /* 스프라이트 COM 객체 */
 		m_szFPS, /* 출력할 문자열 */
 		lstrlen(m_szFPS), /* 문자열 길이 */
+		nullptr, /* 사각형 영역 */
+		0,
+		D3DCOLOR_ARGB(255, 0, 255, 0));
+
+	D3DXMatrixTranslation(&matTrans, 100.f, 120.f, 0.f);
+	m_pDeviceMgr->GetSprite()->SetTransform(&matTrans);
+
+	m_pDeviceMgr->GetFont()->DrawText(
+		m_pDeviceMgr->GetSprite(), /* 스프라이트 COM 객체 */
+		m_szMouse, /* 출력할 문자열 */
+		lstrlen(m_szMouse), /* 문자열 길이 */
 		nullptr, /* 사각형 영역 */
 		0,
 		D3DCOLOR_ARGB(255, 0, 255, 0));

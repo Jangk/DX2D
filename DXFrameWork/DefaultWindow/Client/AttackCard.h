@@ -16,8 +16,10 @@ public:
 
 public:
 	static CAttackCard* Create();
-	void SetRotate(float fAngle);
+	void SetCard(ATTACK_CARD_TYPE type);
+
+
 private:
-	D3DXMATRIX m_matCardUI;
+	ATTACK_CARD_TYPE m_eAttackCardType;
 };
 

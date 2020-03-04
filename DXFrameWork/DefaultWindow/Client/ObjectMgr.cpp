@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "ObjectMgr.h"
 #include "GameObject.h"
+#include "Player.h"
 
 IMPLEMENT_SINGLETON(CObjectMgr)
 
@@ -73,4 +74,9 @@ void CObjectMgr::Release()
 		for_each(m_ObjectList[i].begin(), m_ObjectList[i].end(), SafeDelete<CGameObject*>);
 		m_ObjectList[i].clear();
 	}
+}
+
+CPlayer* CObjectMgr::GetPlayer()
+{
+	return dynamic_cast<CPlayer*>(m_ObjectList[OBJECT_PLAYER].front());
 }

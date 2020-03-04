@@ -12,7 +12,6 @@ typedef struct tagInfo
 	D3DXMATRIX matGRotate;
 	D3DXMATRIX matParents;
 	D3DXMATRIX matWorld; // 월드행렬 = 스(케일) * 자(전) * 이(동) * 공(전) * 부(모행렬)
-
 }INFO;
 
 typedef struct tagTextureInfo

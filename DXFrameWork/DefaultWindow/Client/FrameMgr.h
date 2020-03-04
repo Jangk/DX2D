@@ -22,7 +22,7 @@ private:
 
 	int				m_iFpsCount;
 	TCHAR			m_szFPS[MIN_STR];
-
+	TCHAR			m_szMouse[MIN_STR];
 	CDeviceMgr*		m_pDeviceMgr;
 	CTimeMgr*		m_pTimeMgr;
 };

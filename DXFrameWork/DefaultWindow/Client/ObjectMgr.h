@@ -1,6 +1,6 @@
 #pragma once
 
-class CGameObject;
+class CPlayer;
 class CObjectMgr
 {
 	DECLARE_SINGLETON(CObjectMgr)
@@ -17,6 +17,9 @@ public:
 
 private:
 	void Release();
+
+public:
+	CPlayer* GetPlayer();
 
 private:
 	list<CGameObject*>	m_ObjectList[OBJECT_END];

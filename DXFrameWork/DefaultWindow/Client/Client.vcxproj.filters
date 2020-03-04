@@ -79,17 +79,26 @@
     <Filter Include="98.Managers\07.SceneMgr\00.Scene\03.Stage">
       <UniqueIdentifier>{6a2b2443-35f6-4247-afd4-0d40a80b0c76}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01.GameObject\02.Card">
+    <Filter Include="01.GameObject\03.Card">
       <UniqueIdentifier>{cf8602fe-9c14-4bfe-b433-5075c9b7e0b3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01.GameObject\02.Card\00.Attack">
+    <Filter Include="01.GameObject\03.Card\00.Attack">
       <UniqueIdentifier>{23c5fc50-74a0-42f6-9b5c-4470a4713d9b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01.GameObject\02.Card\01.Skill">
+    <Filter Include="01.GameObject\03.Card\01.Skill">
       <UniqueIdentifier>{dc7281ec-8556-4571-b341-f1c39d36b82b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01.GameObject\02.Card\02.Power">
+    <Filter Include="01.GameObject\03.Card\02.Power">
       <UniqueIdentifier>{fa5d9def-b19f-45b6-a9c3-a302ea724e0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.GameObject\02.Monster">
+      <UniqueIdentifier>{62b5de31-f19e-40c5-a352-f5f32366193a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.GameObject\04.UI">
+      <UniqueIdentifier>{63967ca0-5a40-4f7f-9208-9cc551b08133}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.GameObject\04.UI\00.TopPanel">
+      <UniqueIdentifier>{d3b13879-d7e5-443c-91f3-8bf2357bfb43}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -172,10 +181,22 @@
       <Filter>98.Managers\07.SceneMgr\00.Scene\02.WorldMap</Filter>
     </ClInclude>
     <ClInclude Include="Card.h">
-      <Filter>01.GameObject\02.Card</Filter>
+      <Filter>01.GameObject\03.Card</Filter>
     </ClInclude>
     <ClInclude Include="AttackCard.h">
-      <Filter>01.GameObject\02.Card\00.Attack</Filter>
+      <Filter>01.GameObject\03.Card\00.Attack</Filter>
+    </ClInclude>
+    <ClInclude Include="SkillCard.h">
+      <Filter>01.GameObject\03.Card\01.Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="PowerCard.h">
+      <Filter>01.GameObject\03.Card\02.Power</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>01.GameObject\02.Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="TopPanel.h">
+      <Filter>01.GameObject\04.UI\00.TopPanel</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -218,9 +239,6 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>01.GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>01.GameObject\01.Player</Filter>
-    </ClCompile>
     <ClCompile Include="Terrain.cpp">
       <Filter>01.GameObject\00.Terrain</Filter>
     </ClCompile>
@@ -252,10 +270,25 @@
       <Filter>98.Managers\07.SceneMgr\00.Scene\02.WorldMap</Filter>
     </ClCompile>
     <ClCompile Include="Card.cpp">
-      <Filter>01.GameObject\02.Card</Filter>
+      <Filter>01.GameObject\03.Card</Filter>
     </ClCompile>
     <ClCompile Include="AttackCard.cpp">
-      <Filter>01.GameObject\02.Card\00.Attack</Filter>
+      <Filter>01.GameObject\03.Card\00.Attack</Filter>
+    </ClCompile>
+    <ClCompile Include="SkillCard.cpp">
+      <Filter>01.GameObject\03.Card\01.Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="PowerCard.cpp">
+      <Filter>01.GameObject\03.Card\02.Power</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>01.GameObject\02.Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>01.GameObject\01.Player</Filter>
+    </ClCompile>
+    <ClCompile Include="TopPanel.cpp">
+      <Filter>01.GameObject\04.UI\00.TopPanel</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

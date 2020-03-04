@@ -29,3 +29,18 @@ void CGameObject::SetPos(float x, float y, float z)
 {
 	m_tInfo.vPos = {x, y ,z };
 }
+
+void CGameObject::SetRotate(float fAngle)
+{
+	D3DXMatrixRotationZ(&m_tInfo.matRotate, D3DXToRadian(fAngle));
+}
+
+void CGameObject::SetScale(float x, float y, float z)
+{
+	D3DXMatrixScaling(&m_tInfo.matScale, x, y, z);
+}
+
+const INFO & CGameObject::GetInfo()
+{
+	return m_tInfo;
+}

@@ -69,7 +69,7 @@ void CPlayer::Render()
 	float fCenterY = pTexInfo->tImgInfo.Height * 0.5f;
 
 	D3DXMatrixScaling(&m_tInfo.matScale, 1, 1, 1);
-	D3DXMatrixTranslation(&m_tInfo.matTrans, m_tInfo.vPos.x, m_tInfo.vPos.y, 0);
+	D3DXMatrixTranslation(&m_tInfo.matTrans, m_tInfo.vPos.x, m_tInfo.vPos.y, 1);
 	m_tInfo.matWorld = m_tInfo.matScale * m_tInfo.matTrans;
 	m_pDeviceMgr->GetSprite()->SetTransform(&m_tInfo.matWorld);
 	m_pDeviceMgr->GetSprite()->Draw(pTexInfo->pTexture, nullptr, &D3DXVECTOR3(fCenterX, fCenterY, 0.f),
@@ -80,7 +80,7 @@ HRESULT CPlayer::Initialize()
 {	// m_tInfo 초기화는 CGameObject 생성자에서 처리함.
 	m_tInfo.vPos		= { 400.f, 300.f, 0 };
 	m_tFrame.fCurFrame	= 0.f;
-	m_tFrame.fMaxFrame	= 11.f;
+	m_tFrame.fMaxFrame	= 53.f;
 	
 	return S_OK;
 }

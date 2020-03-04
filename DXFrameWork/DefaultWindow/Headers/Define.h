@@ -12,16 +12,33 @@
 #define TILECX 130
 #define TILECY 68
 
+
+//
+#define DRAW_CARD_MAX 10
+
+
+
+// 캐릭터 선택 버튼 크기
 #define SELECTBUTTONCX 100
 #define SELECTBUTTONCY 100
 
+
+
+// String Max
 #define MIN_STR 64
 #define MID_STR 128
 #define MAX_STR 256
 
+
+// 이벤트
 #define NO_EVENT		0
 #define DEAD_OBJ		1
 #define CHANGE_SCENE	2
+
+
+
+
+
 
 #define NULL_CHECK(ptr) if(nullptr == (ptr)) return;
 #define NULL_CHECK_CONTINUE(ptr) if(nullptr == (ptr)) continue;
