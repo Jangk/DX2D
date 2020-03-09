@@ -9,6 +9,7 @@
 #include "Mouse.h"
 #include "Player.h"
 #include "Monster.h"
+#include "TopPanel.h"
 
 
 CStage::CStage()
@@ -23,11 +24,15 @@ CStage::~CStage()
 
 int CStage::Update()
 {
-	Input();
-	m_pObjectMgr->Update();
-	RotateDrawCard();
-	if(!m_bIsCardSelect)
-		IsPicking();
+	if (m_bIsPlayerTurn)
+	{
+		Input();
+		m_pObjectMgr->Update();
+		UpdateCard();
+		RotateDrawCard();
+		if (!m_bIsCardSelect)
+			IsPicking();
+	}
 	return NO_EVENT;
 }
 
@@ -54,37 +59,33 @@ void CStage::Render()
 	m_pDeviceMgr->GetSprite()->SetTransform(&matWorld);
 	m_pDeviceMgr->GetSprite()->Draw(pTexInfo->pTexture, nullptr, &D3DXVECTOR3(fCenterX, fCenterY, 0.f),
 		nullptr, D3DCOLOR_ARGB(255, 255, 255, 255));
-	
-	
+
 	m_pObjectMgr->Render();
 }
 
 HRESULT CStage::Initialize()
 {
+	list<CGameObject*> temp;
+	m_bIsPlayerTurn		= true;
 	m_bIsCardSelect		= false;
 	m_fCardAngleMax		= 50;
 	m_iSelectedIndex	= -1;			// 아무것도 선택되지않으면 -1
 
 	m_pObjectMgr->AddObject(OBJECT_PLAYER, CPlayer::Create());
 	m_pObjectMgr->AddObject(OBJECT_MONSTER, CMonster::Create());
+	m_pObjectMgr->AddObject(OBJECT_UI, CTopPanel::Create());
 	
-	for (int i = 0; i < DRAW_CARD_MAX; ++i)
-	{
-		CCard* temp;
-		temp = CAttackCard::Create();
-		dynamic_cast<CAttackCard*>(temp)->SetCard(ATTACK_CARD_TYPE(i % ATTACK_CARD_END));
-		m_vecAllCard.push_back(temp);
-		m_pObjectMgr->AddObject(OBJECT_CARD, temp);
 
-		// 현재 턴구현이 안되서 바로 드로우덱에 넣음
-		m_vecDrawCard.push_back(m_vecAllCard[i]);
-	}
+	temp = m_pObjectMgr->GetCardDeck();
+	for(auto iter : temp)
+		m_vecDeck.push_back(dynamic_cast<CCard*>(iter));
+
+	StartPlayerTurn();
 	return S_OK;
 }
 
 void CStage::Release()
 {
-	m_vecAllCard.clear();
 	m_vecDeck.clear();
 	m_vecDrawCard.clear();
 	m_vecTomb.clear();
@@ -107,12 +108,12 @@ void CStage::RotateDrawCard()
 {
 	// i가 0일떄 0으로 나눠서 에러뜸.
 	float fAngle = 0;
-	int iHalfSize = m_vecAllCard.size() / 2;
+	int iHalfSize = m_vecDrawCard.size() / 2;
 	int iCardDisX = WINCX / (DRAW_CARD_MAX + 2);
 	int iCardDisY = 300 / (DRAW_CARD_MAX + 2);
 
 
-	for (int i = 0; i < m_vecAllCard.size(); ++i)
+	for (int i = 0; i < m_vecDrawCard.size(); ++i)
 	{
 		if (iHalfSize == 0)
 			fAngle = 0;
@@ -147,17 +148,16 @@ void CStage::IsPicking()
 
 
 	// 카드 크기 전부 초기화.
-	for (int i = 0; i < DRAW_CARD_MAX; ++i)
+	for (int i = 0; i < m_vecDrawCard.size(); ++i)
 	{
-		m_vecAllCard[i]->SetScale(
-			m_vecAllCard[i]->GetImageScale(),
-			m_vecAllCard[i]->GetImageScale(),
+		m_vecDrawCard[i]->SetScale(
+			m_vecDrawCard[i]->GetImageScale(),
+			m_vecDrawCard[i]->GetImageScale(),
 			0);
 	}
 
 
-
-	for (int i = 0; i < DRAW_CARD_MAX; ++i)
+	for (int i = 0; i < m_vecDrawCard.size(); ++i)
 	{
 		info = m_vecDrawCard[i]->GetInfo();
 		
@@ -206,15 +206,45 @@ void CStage::IsPicking()
 
 void CStage::Input()
 {
-	if (m_pKeyMgr->KeyDown(KEY_LBUTTON) && m_iSelectedIndex != -1)
+	if (m_pKeyMgr->KeyDown(KEY_LBUTTON))
 	{
-		m_vecDrawCard[m_iSelectedIndex]->SetSelect(true);
-		m_bIsCardSelect = true;
+		if (m_bIsCardSelect)
+		{
+			if (m_pObjectMgr->IsPickingMonster())
+			{
+				m_vecTomb.push_back(m_vecDrawCard[m_iSelectedIndex]);
+				m_vecDrawCard.erase(m_vecDrawCard.begin() + m_iSelectedIndex);
+				m_bIsCardSelect = false;
+			}
+		}
+		else
+		{
+			if (m_iSelectedIndex != -1)
+			{
+				m_vecDrawCard[m_iSelectedIndex]->SetSelect(true);
+				m_bIsCardSelect = true;
+			}
+		}
 	}
-	if (m_pKeyMgr->KeyDown(KEY_RBUTTON))
+	else if (m_pKeyMgr->KeyDown(KEY_RBUTTON))
 	{
-		for (int i = 0; i < DRAW_CARD_MAX; ++i)
-			m_vecAllCard[i]->SetSelect(false);
+		for (int i = 0; i < m_vecDrawCard.size(); ++i)
+			m_vecDrawCard[i]->SetSelect(false);
 		m_bIsCardSelect = false;
+		m_iSelectedIndex = -1;
 	}
+}
+
+void CStage::UpdateCard()
+{
+	for (auto iter : m_vecDrawCard)
+		iter->SetRender(true);
+	for (auto iter : m_vecTomb)
+		iter->SetRender(false);
+}
+
+void CStage::StartPlayerTurn()
+{
+ 	for (int i = 0; i < 10; ++i)
+ 		m_vecDrawCard.push_back(m_vecDeck[i]);
 }

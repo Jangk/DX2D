@@ -29,10 +29,15 @@ public :
 	inline void SetSelect(bool bSet) {
 		m_bIsSelect = bSet;
 	}
+	inline void SetRender(bool bSet) {
+		m_bIsRender = bSet;
+	}
+
 
 public:
 	CARD_TYPE m_eCardType;
 	bool m_bIsSelect;
+	bool m_bIsRender;
 	float m_fCardX;
 	float m_fCardY;
 	float m_fImageSacle;

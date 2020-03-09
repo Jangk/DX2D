@@ -8,7 +8,8 @@
 IMPLEMENT_SINGLETON(CSceneMgr)
 
 CSceneMgr::CSceneMgr()
-	: m_pScene(nullptr)
+	: m_pScene(nullptr),
+	m_bIsFirst(true)
 {
 }
 
@@ -22,7 +23,14 @@ HRESULT CSceneMgr::SceneChange(SCENE_TYPE eCurType, SCENE_TYPE eNextType)
 {
 	if (eCurType != eNextType)
 	{
-		SafeDelete(m_pScene);
+		if (m_bIsFirst)
+		{
+			m_pWorldMap = CWorldMap::Create();
+			m_bIsFirst  = false;
+		}
+
+		if(m_pScene != m_pWorldMap)
+			SafeDelete(m_pScene);
 
 		switch (eNextType)
 		{
@@ -33,7 +41,7 @@ HRESULT CSceneMgr::SceneChange(SCENE_TYPE eCurType, SCENE_TYPE eNextType)
 			m_pScene = CCharSelect::Create();
 			break;
 		case SCENE_WORLD_MAP:
-			m_pScene = CWorldMap::Create();
+			m_pScene = m_pWorldMap;					// 월드맵은 지우지않고 계속 재활용할것.
 			break;
 		case SCENE_STAGE:
 			m_pScene = CStage::Create();

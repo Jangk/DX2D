@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Player.h"
 #include "ScrollMgr.h"
+#include "HPBar.h"
 
 CPlayer::CPlayer()
 	: m_pKeyMgr(CKeyMgr::GetInstance()),
@@ -10,7 +11,6 @@ CPlayer::CPlayer()
 	ZeroMemory(&m_tFrame, sizeof(FRAME));
 }
 
-
 CPlayer::~CPlayer()
 {
 	Release();
@@ -18,16 +18,17 @@ CPlayer::~CPlayer()
 
 int CPlayer::Update()
 {		
-	m_tFrame.fCurFrame += m_tFrame.fMaxFrame * m_pTimeMgr->GetDelta()/* * 20.f*/;
+	m_HPBar->Update();
+	m_tFrame.fCurFrame += m_tFrame.fMaxFrame * m_pTimeMgr->GetDelta()* 0.25f;
 
 	if (m_tFrame.fMaxFrame <= m_tFrame.fCurFrame)
 		m_tFrame.fCurFrame = 0.f;
-
 	return NO_EVENT;
 }
 
 void CPlayer::LateUpdate()
 {
+	m_HPBar->LateUpdate();
 	D3DXMATRIX matScale, matTrans;
 
 	D3DXMatrixScaling(&matScale, 
@@ -47,6 +48,7 @@ void CPlayer::LateUpdate()
 
 void CPlayer::Render()
 {
+	m_HPBar->Render();
 	wstring strState;
 	switch (m_eState)
 	{
@@ -65,28 +67,38 @@ void CPlayer::Render()
 	const TEX_INFO* pTexInfo = m_pTextureMgr->GetTexInfo(L"Player", strState, (int)m_tFrame.fCurFrame);
 	NULL_CHECK(pTexInfo);
 
-	float fCenterX = pTexInfo->tImgInfo.Width * 0.5f;
-	float fCenterY = pTexInfo->tImgInfo.Height * 0.5f;
-
 	D3DXMatrixScaling(&m_tInfo.matScale, 1, 1, 1);
 	D3DXMatrixTranslation(&m_tInfo.matTrans, m_tInfo.vPos.x, m_tInfo.vPos.y, 1);
 	m_tInfo.matWorld = m_tInfo.matScale * m_tInfo.matTrans;
 	m_pDeviceMgr->GetSprite()->SetTransform(&m_tInfo.matWorld);
-	m_pDeviceMgr->GetSprite()->Draw(pTexInfo->pTexture, nullptr, &D3DXVECTOR3(fCenterX, fCenterY, 0.f),
+	m_pDeviceMgr->GetSprite()->Draw(pTexInfo->pTexture, nullptr, &D3DXVECTOR3(m_CharacterInfo.m_fCenterX, m_CharacterInfo.m_fCenterY, 0.f),
 		nullptr, D3DCOLOR_ARGB(255, 255, 255, 255));
 }
 
 HRESULT CPlayer::Initialize()
 {	// m_tInfo 초기화는 CGameObject 생성자에서 처리함.
-	m_tInfo.vPos		= { 400.f, 300.f, 0 };
+	m_tInfo.vPos		= { 300.f, 550.f, 0 };
 	m_tFrame.fCurFrame	= 0.f;
 	m_tFrame.fMaxFrame	= 53.f;
 	
+
+	// 캐릭터
+	const TEX_INFO* pTexInfo = m_pTextureMgr->GetTexInfo(L"Player", L"Idle", 0);
+	NULL_CHECK_RETURN(pTexInfo, E_FAIL);
+
+	m_CharacterInfo.m_iMaxHP	= 70;
+	m_CharacterInfo.m_iCurHP	= m_CharacterInfo.m_iMaxHP;
+	m_CharacterInfo.m_fCenterX	= pTexInfo->tImgInfo.Width * 0.5f;
+	m_CharacterInfo.m_fCenterY	= pTexInfo->tImgInfo.Height * 0.5f;
+
+	// 플레이가 사라지면 자동으로 사라지게
+	m_HPBar = CHPBar::Create(this);
 	return S_OK;
 }
 
 void CPlayer::Release()
 {
+	SafeDelete<CHPBar*>(m_HPBar);
 }
 
 CPlayer* CPlayer::Create()

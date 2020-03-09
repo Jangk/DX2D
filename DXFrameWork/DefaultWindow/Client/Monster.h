@@ -1,10 +1,12 @@
 #pragma once
-#include "GameObject.h"
-class CMonster : public CGameObject
+#include "Character.h"
+
+class CMonster : public CCharacter
 {
-public:
+private:
 	CMonster();
-	~CMonster();
+public:
+	virtual ~CMonster();
 
 
 public:
@@ -19,6 +21,5 @@ public:
 	static CMonster* Create();
 
 private:
-	FRAME			m_tFrame;
 };
 

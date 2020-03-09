@@ -5,6 +5,7 @@ class CTopPanel : public CGameObject
 {
 private:
 	CTopPanel();
+public:
 	~CTopPanel();
 
 public:
@@ -16,8 +17,12 @@ public:
 	virtual void Release() override;
 
 public:
-
+	static CTopPanel* Create();
 private:
 	CPlayer* m_Player;
+	CHARACTER_INFO m_PlayerInfo;
+	D3DXVECTOR3 m_vecHeart;
+	D3DXVECTOR3 m_vecGoldBag;
+	TCHAR m_wstrUI[MIN_STR];
 };
 

@@ -90,11 +90,31 @@ HRESULT CDeviceMgr::InitDevice(DISPLAY_MODE eMode)
 	tFontInfo.Height = 20;
 	tFontInfo.Weight = FW_HEAVY;
 	tFontInfo.CharSet = HANGEUL_CHARSET;
-	lstrcpy(tFontInfo.FaceName, L"consolas");
-
+	lstrcpy(tFontInfo.FaceName, L"경기천년바탕 Bold");
 	hr = D3DXCreateFontIndirect(m_pGraphicDev, &tFontInfo, &m_pFont);
 	FAILED_CHECK_MSG_RETURN(hr, L"D3DXCreateFontIndirect Failed", E_FAIL);
 
+
+	// 카드용 폰트
+	ZeroMemory(&tFontInfo, sizeof(D3DXFONT_DESC));
+	tFontInfo.Width = 5;
+	tFontInfo.Height = 10;
+	tFontInfo.Weight = FW_HEAVY;
+	tFontInfo.CharSet = HANGEUL_CHARSET;
+	lstrcpy(tFontInfo.FaceName, L"경기천년바탕 Bold");
+	hr = D3DXCreateFontIndirect(m_pGraphicDev, &tFontInfo, &m_pCardFont);
+	FAILED_CHECK_MSG_RETURN(hr, L"D3DXCreateFontIndirect Failed", E_FAIL);
+
+
+	// UI용폰트
+	ZeroMemory(&tFontInfo, sizeof(D3DXFONT_DESC));
+	tFontInfo.Width = 10;
+	tFontInfo.Height = 20;
+	tFontInfo.Weight = FW_HEAVY;
+	tFontInfo.CharSet = HANGEUL_CHARSET;
+	lstrcpy(tFontInfo.FaceName, L"경기천년바탕 Bold");
+	hr = D3DXCreateFontIndirect(m_pGraphicDev, &tFontInfo, &m_pUIFont);
+	FAILED_CHECK_MSG_RETURN(hr, L"D3DXCreateFontIndirect Failed", E_FAIL);
 	return S_OK;
 }
 
@@ -126,6 +146,10 @@ void CDeviceMgr::Render_End()
 void CDeviceMgr::Release()
 {
 	if(m_pFont->Release())
+		::MessageBox(0, L"m_pFont Release Failed", L"System Error", MB_OK);
+	if (m_pCardFont->Release())
+		::MessageBox(0, L"m_pFont Release Failed", L"System Error", MB_OK);
+	if (m_pUIFont->Release())
 		::MessageBox(0, L"m_pFont Release Failed", L"System Error", MB_OK);
 	if(m_pSprite->Release())
 		::MessageBox(0, L"m_pSprite Release Failed", L"System Error", MB_OK);

@@ -20,5 +20,9 @@ private:
 
 private:
 	CScene*			m_pScene;
+	CScene*			m_pWorldMap;
+
+
+	bool			m_bIsFirst;
 };
 

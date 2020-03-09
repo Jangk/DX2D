@@ -19,6 +19,7 @@ private:
 
 public:
 	static CMainGame* Create();
+	void InitializeCardDeck();
 	HRESULT LoadImageResource();
 
 private:

@@ -5,7 +5,8 @@
 CGameObject::CGameObject()
 	: m_pDeviceMgr(CDeviceMgr::GetInstance()),
 	m_pTextureMgr(CTextureMgr::GetInstance()),
-	m_pTimeMgr(CTimeMgr::GetInstance())
+	m_pTimeMgr(CTimeMgr::GetInstance()),
+	m_pObjectMgr(CObjectMgr::GetInstance())
 {
 	D3DXMatrixIdentity(&m_tInfo.matScale);		// 스케일
 	D3DXMatrixIdentity(&m_tInfo.matRotate);		// 자전

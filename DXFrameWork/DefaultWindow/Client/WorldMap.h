@@ -1,5 +1,7 @@
 #pragma once
 #include "Scene.h"
+
+class CNord;
 class CWorldMap :
 	public CScene
 {
@@ -18,12 +20,12 @@ public:
 public:
 	static CWorldMap* Create();
 	int ScrollScreen();
-	HRESULT LoadResources();
 
 public:
 	CScrollMgr* m_pScrollMgr;
 	vector<D3DVECTOR*> m_vecWorldMap;
-	
+	// 노드 잠시 출력용
+	CNord* m_Nord[4];
 	float m_fImageScaleX;
 	float m_fImageScaleY;
 	float m_fWorldMapCX;

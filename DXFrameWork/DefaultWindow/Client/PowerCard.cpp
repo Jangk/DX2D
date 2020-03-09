@@ -28,6 +28,8 @@ void CPowerCard::LateUpdate()
 
 void CPowerCard::Render()
 {
+	if (!m_bIsRender)
+		return;
 	const TEX_INFO* pTexInfo;
 	float fCenterX;
 	float fCenterY;

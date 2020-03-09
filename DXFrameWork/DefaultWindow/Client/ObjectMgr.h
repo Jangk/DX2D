@@ -1,6 +1,7 @@
 #pragma once
 
 class CPlayer;
+class CGameObject;
 class CObjectMgr
 {
 	DECLARE_SINGLETON(CObjectMgr)
@@ -20,6 +21,8 @@ private:
 
 public:
 	CPlayer* GetPlayer();
+	const list<CGameObject*>& GetCardDeck();
+	bool IsPickingMonster();
 
 private:
 	list<CGameObject*>	m_ObjectList[OBJECT_END];

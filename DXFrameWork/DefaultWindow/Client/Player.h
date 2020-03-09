@@ -1,8 +1,7 @@
 #pragma once
+#include "Character.h"
 
-#include "GameObject.h"
-
-class CPlayer : public CGameObject
+class CPlayer : public CCharacter
 {
 private:
 	CPlayer();
@@ -23,9 +22,7 @@ public:
 	static CPlayer* Create();
 
 private:
-	FRAME			m_tFrame;
 	CKeyMgr*		m_pKeyMgr;
-
 	PLAYER_STATE	m_eState;
 };
 

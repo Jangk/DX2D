@@ -43,3 +43,11 @@ typedef struct tagSelectButtonInfo
 	wstring strCharName;
 }BUTTON_INFO;
 
+typedef struct tagCharacterInfo
+{
+	int m_iCurHP;
+	int m_iMaxHP;
+	int m_iGold;
+	float m_fCenterX;
+	float m_fCenterY;
+}CHARACTER_INFO;

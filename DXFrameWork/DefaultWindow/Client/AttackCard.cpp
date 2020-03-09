@@ -30,6 +30,8 @@ void CAttackCard::LateUpdate()
 
 void CAttackCard::Render()
 {
+	if (!m_bIsRender)
+		return;
 	const TEX_INFO* pTexInfo;
 	float fCenterX;
 	float fCenterY;

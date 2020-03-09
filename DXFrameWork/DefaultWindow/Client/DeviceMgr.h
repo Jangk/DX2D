@@ -35,7 +35,8 @@ private:
 	// ID3DXFont: DirectX에서 2D 폰트를 손쉽게 렌더링하도록 도와주는 COM객체.
 	// 다이렉트 폰트
 	LPD3DXFONT m_pFont;
-
+	LPD3DXFONT m_pCardFont;
+	LPD3DXFONT m_pUIFont;
 	// COM (Component Object Model)
 	// 부품 조립하듯 프로그래밍 하자!
 	// 마이크로소프트에서 제시한 프로그래밍 모델.

@@ -1,5 +1,9 @@
 #include "stdafx.h"
 #include "MainGame.h"
+#include "Card.h"
+#include "AttackCard.h"
+#include "SkillCard.h"
+#include "PowerCard.h"
 
 
 
@@ -9,7 +13,6 @@
 
  2. 전투씬에서 카드가 Selected상태일때 올바른 대상을 클릭하면 작동하게 할것.
 
- 3. 위에 UI 띄울것.
 */
 
 CMainGame::CMainGame()
@@ -68,7 +71,9 @@ HRESULT CMainGame::Initialize()
 	if (LoadImageResource() == E_FAIL)
 		return E_FAIL;
 
-	hr = m_pSceneMgr->SceneChange(SCENE_END, SCENE_STAGE);
+	InitializeCardDeck();
+
+	hr = m_pSceneMgr->SceneChange(SCENE_END, SCENE_LOGO);
 	FAILED_CHECK_MSG_RETURN(hr, L"Logo Change Failed", E_FAIL);
 
 	return S_OK;
@@ -100,12 +105,151 @@ CMainGame* CMainGame::Create()
 	return pInstance;
 }
 
+void CMainGame::InitializeCardDeck()
+{
+	CCard* temp;
+	// 일단 공격카드 10장 넣음.
+	for (int i = 0; i < DRAW_CARD_MAX; ++i)
+	{
+		temp = CAttackCard::Create();
+		dynamic_cast<CAttackCard*>(temp)->SetCard(ATTACK_CARD_TYPE(i % ATTACK_CARD_END));
+		m_pObjectMgr->AddObject(OBJECT_CARD, temp);
+	}
+}
+
 
 HRESULT CMainGame::LoadImageResource()
 {
 	LPDIRECT3DDEVICE9 pGraphicDev = m_pDeviceMgr->GetDevice();
 	NULL_CHECK_MSG_RETURN(pGraphicDev, L"pGraphicDev is null", E_FAIL);
 	HRESULT hr;
+
+	// 월드맵
+	{
+		hr = m_pTextureMgr->LoadTexture(
+			pGraphicDev,
+			TEXTURE_MULTI,
+			L"../Resource/WorldMap/mapTop.png",
+			L"WorldMap",
+			L"Top",
+			1);
+		FAILED_CHECK_MSG_RETURN(hr, L"월드맵 top 로드 실패", E_FAIL);
+
+		hr = m_pTextureMgr->LoadTexture(
+			pGraphicDev,
+			TEXTURE_MULTI,
+			L"../Resource/WorldMap/mapMid.png",
+			L"WorldMap",
+			L"Mid",
+			1);
+		FAILED_CHECK_MSG_RETURN(hr, L"월드맵 Mid 로드 실패", E_FAIL);
+
+		hr = m_pTextureMgr->LoadTexture(
+			pGraphicDev,
+			TEXTURE_MULTI,
+			L"../Resource/WorldMap/mapBot.png",
+			L"WorldMap",
+			L"Bot",
+			1);
+		FAILED_CHECK_MSG_RETURN(hr, L"월드맵 Bot 로드 실패", E_FAIL);
+
+
+		// 상자 노드
+		hr = m_pTextureMgr->LoadTexture(
+			pGraphicDev,
+			TEXTURE_MULTI,
+			L"../Resource/WorldMap/chest.png",
+			L"WorldMap",
+			L"Chest",
+			1);
+		FAILED_CHECK_MSG_RETURN(hr, L"Chest", E_FAIL);
+
+		hr = m_pTextureMgr->LoadTexture(
+			pGraphicDev,
+			TEXTURE_MULTI,
+			L"../Resource/WorldMap/chestOutline.png",
+			L"WorldMap",
+			L"chestOutline",
+			1);
+		FAILED_CHECK_MSG_RETURN(hr, L"chestOutline", E_FAIL);
+
+		// 엘리트 노드
+		hr = m_pTextureMgr->LoadTexture(
+			pGraphicDev,
+			TEXTURE_MULTI,
+			L"../Resource/WorldMap/elite.png",
+			L"WorldMap",
+			L"elite",
+			1);
+		FAILED_CHECK_MSG_RETURN(hr, L"elite", E_FAIL);
+		
+		hr = m_pTextureMgr->LoadTexture(
+			pGraphicDev,
+			TEXTURE_MULTI,
+			L"../Resource/WorldMap/eliteOutline.png",
+			L"WorldMap",
+			L"eliteOutline",
+			1);
+		FAILED_CHECK_MSG_RETURN(hr, L"eliteOutline", E_FAIL);
+
+		// 이벤트 노드
+		hr = m_pTextureMgr->LoadTexture(
+			pGraphicDev,
+			TEXTURE_MULTI,
+			L"../Resource/WorldMap/event.png",
+			L"WorldMap",
+			L"event",
+			1);
+		FAILED_CHECK_MSG_RETURN(hr, L"event", E_FAIL);
+
+		hr = m_pTextureMgr->LoadTexture(
+			pGraphicDev,
+			TEXTURE_MULTI,
+			L"../Resource/WorldMap/eventOutline.png",
+			L"WorldMap",
+			L"eventOutline",
+			1);
+		FAILED_CHECK_MSG_RETURN(hr, L"eventOutline", E_FAIL);
+
+		// 몬스터 노드
+		hr = m_pTextureMgr->LoadTexture(
+			pGraphicDev,
+			TEXTURE_MULTI,
+			L"../Resource/WorldMap/monster.png",
+			L"WorldMap",
+			L"monster",
+			1);
+		FAILED_CHECK_MSG_RETURN(hr, L"monster", E_FAIL);
+
+		hr = m_pTextureMgr->LoadTexture(
+			pGraphicDev,
+			TEXTURE_MULTI,
+			L"../Resource/WorldMap/monsterOutline.png",
+			L"WorldMap",
+			L"monsterOutline",
+			1);
+		FAILED_CHECK_MSG_RETURN(hr, L"monsterOutline", E_FAIL);
+
+		// 레스트(캠프파이어) 노드
+		hr = m_pTextureMgr->LoadTexture(
+			pGraphicDev,
+			TEXTURE_MULTI,
+			L"../Resource/WorldMap/rest.png",
+			L"WorldMap",
+			L"rest",
+			1);
+		FAILED_CHECK_MSG_RETURN(hr, L"rest", E_FAIL);
+
+		hr = m_pTextureMgr->LoadTexture(
+			pGraphicDev,
+			TEXTURE_MULTI,
+			L"../Resource/WorldMap/restOutline.png",
+			L"WorldMap",
+			L"restOutline",
+			1);
+		FAILED_CHECK_MSG_RETURN(hr, L"restOutline", E_FAIL);
+	}
+
 
 	// 카드 이미지 
 	{
@@ -116,6 +260,7 @@ HRESULT CMainGame::LoadImageResource()
 			L"Card",
 			L"Attack",
 			10);
+		FAILED_CHECK_MSG_RETURN(hr, L"Attack", E_FAIL);
 
 		hr = m_pTextureMgr->LoadTexture(
 			pGraphicDev,
@@ -124,6 +269,8 @@ HRESULT CMainGame::LoadImageResource()
 			L"Card",
 			L"Skill",
 			13);
+		FAILED_CHECK_MSG_RETURN(hr, L"Skill", E_FAIL);
+
 
 		hr = m_pTextureMgr->LoadTexture(
 			pGraphicDev,
@@ -132,6 +279,7 @@ HRESULT CMainGame::LoadImageResource()
 			L"Card",
 			L"Power",
 			3);
+		FAILED_CHECK_MSG_RETURN(hr, L"Power", E_FAIL);
 
 
 		// 카드 테두리
@@ -142,6 +290,8 @@ HRESULT CMainGame::LoadImageResource()
 			L"Card",
 			L"AttackOutline",
 			3);
+		FAILED_CHECK_MSG_RETURN(hr, L"AttackOutline_", E_FAIL);
+
 
 		hr = m_pTextureMgr->LoadTexture(
 			pGraphicDev,
@@ -150,6 +300,8 @@ HRESULT CMainGame::LoadImageResource()
 			L"Card",
 			L"SkillOutline",
 			3);
+		FAILED_CHECK_MSG_RETURN(hr, L"SkillOutline_", E_FAIL);
+
 
 		hr = m_pTextureMgr->LoadTexture(
 			pGraphicDev,
@@ -158,6 +310,7 @@ HRESULT CMainGame::LoadImageResource()
 			L"Card",
 			L"PowerOutline",
 			3);
+		FAILED_CHECK_MSG_RETURN(hr, L"PowerOutline_", E_FAIL);
 
 
 		// 카드 이름
@@ -168,6 +321,8 @@ HRESULT CMainGame::LoadImageResource()
 			L"Card",
 			L"CardName",
 			3);
+		FAILED_CHECK_MSG_RETURN(hr, L"CardName_", E_FAIL);
+
 
 		// 카드 배경
 		hr = m_pTextureMgr->LoadTexture(
@@ -175,18 +330,23 @@ HRESULT CMainGame::LoadImageResource()
 			TEXTURE_SINGLE,
 			L"../Resource/Card/CardUI/AttackBackground.png",
 			L"AttackBackground");
+		FAILED_CHECK_MSG_RETURN(hr, L"AttackBackground", E_FAIL);
+
 
 		hr = m_pTextureMgr->LoadTexture(
 			pGraphicDev,
 			TEXTURE_SINGLE,
 			L"../Resource/Card/CardUI/SkillBackground.png",
 			L"SkillBackground");
+		FAILED_CHECK_MSG_RETURN(hr, L"SkillBackground", E_FAIL);
+
 
 		hr = m_pTextureMgr->LoadTexture(
 			pGraphicDev,
 			TEXTURE_SINGLE,
 			L"../Resource/Card/CardUI/PowerBackground.png",
 			L"PowerBackground");
+		FAILED_CHECK_MSG_RETURN(hr, L"PowerBackground", E_FAIL);
 	}
 
 
@@ -199,6 +359,8 @@ HRESULT CMainGame::LoadImageResource()
 			L"Player",
 			L"Idle",
 			53);
+		FAILED_CHECK_MSG_RETURN(hr, L"Player_Idle_", E_FAIL);
+
 
 		hr = m_pTextureMgr->LoadTexture(
 			pGraphicDev,
@@ -207,6 +369,8 @@ HRESULT CMainGame::LoadImageResource()
 			L"Player",
 			L"Hit",
 			9);
+		FAILED_CHECK_MSG_RETURN(hr, L"Player_Hit_", E_FAIL);
+
 
 		hr = m_pTextureMgr->LoadTexture(
 			pGraphicDev,
@@ -215,6 +379,7 @@ HRESULT CMainGame::LoadImageResource()
 			L"Player",
 			L"Dead",
 			1);
+		FAILED_CHECK_MSG_RETURN(hr, L"Player_Dead_", E_FAIL);
 	}
 
 
@@ -227,6 +392,8 @@ HRESULT CMainGame::LoadImageResource()
 			L"Cultist",
 			L"Idle",
 			40);
+		FAILED_CHECK_MSG_RETURN(hr, L"Cultist_Idle_", E_FAIL);
+
 
 		hr = m_pTextureMgr->LoadTexture(
 			pGraphicDev,
@@ -235,6 +402,7 @@ HRESULT CMainGame::LoadImageResource()
 			L"Cultist",
 			L"Attack",
 			20);
+		FAILED_CHECK_MSG_RETURN(hr, L"Cultist_Attack_", E_FAIL);
 	}
 
 	// 스테이지 백그라운드
@@ -246,5 +414,97 @@ HRESULT CMainGame::LoadImageResource()
 			L"Stage",
 			L"Background",
 			1);
+		FAILED_CHECK_MSG_RETURN(hr, L"Background", E_FAIL);
 	}
+	
+	// UI
+	{
+		// top panel
+		hr = m_pTextureMgr->LoadTexture(
+			pGraphicDev,
+			TEXTURE_MULTI,
+			L"../Resource/UI/TopPanel/Bar.png",
+			L"UI",
+			L"Bar",
+			1);
+		FAILED_CHECK_MSG_RETURN(hr, L"Bar", E_FAIL);
+
+
+		// 생명 아이콘
+		hr = m_pTextureMgr->LoadTexture(
+			pGraphicDev,
+			TEXTURE_MULTI,
+			L"../Resource/UI/TopPanel/panelHeart.png",
+			L"UI",
+			L"panelHeart",
+			1);
+		FAILED_CHECK_MSG_RETURN(hr, L"panelHeart", E_FAIL);
+
+
+		// 돈 아이콘
+		hr = m_pTextureMgr->LoadTexture(
+			pGraphicDev,
+			TEXTURE_MULTI,
+			L"../Resource/UI/TopPanel/panelGoldBag.png",
+			L"UI",
+			L"panelGoldBag",
+			1);
+		FAILED_CHECK_MSG_RETURN(hr, L"panelGoldBag", E_FAIL);
+
+
+		// 현재 체력바
+		hr = m_pTextureMgr->LoadTexture(
+			pGraphicDev,
+			TEXTURE_MULTI,
+			L"../Resource/UI/InGame/CurHP.png",
+			L"UI",
+			L"CurHP",
+			1);
+		FAILED_CHECK_MSG_RETURN(hr, L"CurHP", E_FAIL);
+
+
+		// 최대 체력바
+		hr = m_pTextureMgr->LoadTexture(
+			pGraphicDev,
+			TEXTURE_MULTI,
+			L"../Resource/UI/InGame/MaxHP.png",
+			L"UI",
+			L"MaxHP",
+			1);
+		FAILED_CHECK_MSG_RETURN(hr, L"MaxHP", E_FAIL);
+
+
+		// 에너지 아이콘
+		hr = m_pTextureMgr->LoadTexture(
+			pGraphicDev,
+			TEXTURE_MULTI,
+			L"../Resource/UI/InGame/Cost.png",
+			L"UI",
+			L"Cost",
+			1);
+		FAILED_CHECK_MSG_RETURN(hr, L"Cost", E_FAIL);
+
+
+		// 덱 아이콘
+		hr = m_pTextureMgr->LoadTexture(
+			pGraphicDev,
+			TEXTURE_MULTI,
+			L"../Resource/UI/InGame/Deck.png",
+			L"UI",
+			L"Deck",
+			1);
+		FAILED_CHECK_MSG_RETURN(hr, L"Deck", E_FAIL);
+
+
+		// 무덤 아이콘
+		hr = m_pTextureMgr->LoadTexture(
+			pGraphicDev,
+			TEXTURE_MULTI,
+			L"../Resource/UI/InGame/Tomb.png",
+			L"UI",
+			L"Tomb",
+			1);
+		FAILED_CHECK_MSG_RETURN(hr, L"Tomb", E_FAIL);
+	}
+
 }

@@ -29,6 +29,7 @@ protected:
 	CDeviceMgr*		m_pDeviceMgr;
 	CTextureMgr*	m_pTextureMgr;	
 	CTimeMgr*		m_pTimeMgr;
+	CObjectMgr*     m_pObjectMgr;
 
 	INFO			m_tInfo;
 };
