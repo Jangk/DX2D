@@ -22,6 +22,7 @@ public:
 private:
 	CCharacter* m_Target;
 	D3DXVECTOR3 m_vecDefaultScale;
-	float m_fRatio;
+	TCHAR		m_szHPText[MIN_STR];
+	float		m_fRatio;
 };
 

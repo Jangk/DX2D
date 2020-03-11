@@ -25,5 +25,6 @@ protected:
 	CObjectMgr*		m_pObjectMgr;
 	CKeyMgr*		m_pKeyMgr;
 	CScrollMgr*		m_pScrollMgr;
+	CGameMgr*		m_pGameMgr;
 };
 

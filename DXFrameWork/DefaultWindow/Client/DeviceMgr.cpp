@@ -65,9 +65,9 @@ HRESULT CDeviceMgr::InitDevice(DISPLAY_MODE eMode)
 	d3dpp.MultiSampleType = D3DMULTISAMPLE_NONE;
 	d3dpp.MultiSampleQuality = 0;
 
-	d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD; // 스왑체인 방식
+	d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;	// 스왑체인 방식
 	d3dpp.hDeviceWindow = g_hWnd;
-	d3dpp.Windowed = eMode; // TRUE: 창모드, FALSE: 전체화면 모드
+	d3dpp.Windowed = eMode;						// TRUE: 창모드, FALSE: 전체화면 모드
 	d3dpp.EnableAutoDepthStencil = TRUE;
 	d3dpp.AutoDepthStencilFormat = D3DFMT_D24S8;
 

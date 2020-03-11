@@ -19,8 +19,10 @@ public:
 public:
 	static CNord* Create();
 	void SetNord(NORD_TYPE eType);
+	bool IsPicking();
 
 private:
+	CKeyMgr* m_pKeyMgr;
 	NORD_TYPE m_eNord;
 	bool m_bIsPicking;
 };

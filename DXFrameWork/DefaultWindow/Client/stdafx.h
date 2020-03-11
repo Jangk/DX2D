@@ -54,6 +54,8 @@ using namespace std;
 #include "SceneMgr.h"
 #include "FrameMgr.h"
 #include "ScrollMgr.h"
+#include "GameMgr.h"
+#include "MyMath.h"
 
 #ifdef _DEBUG
 //#include "vld.h"

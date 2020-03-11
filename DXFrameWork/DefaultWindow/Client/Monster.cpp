@@ -7,7 +7,6 @@ CMonster::CMonster()
 {
 }
 
-
 CMonster::~CMonster()
 {
 	Release();
@@ -21,7 +20,7 @@ int CMonster::Update()
 	if (m_tFrame.fMaxFrame <= m_tFrame.fCurFrame)
 		m_tFrame.fCurFrame = 0.f;
 
-	if (m_CharacterInfo.m_iCurHP <= 0)
+	if (m_CharacterInfo.iCurHP <= 0)
 		return DEAD_OBJ;
 	return 0;
 }
@@ -38,7 +37,7 @@ void CMonster::Render()
 	NULL_CHECK(pTexInfo);
 
 	m_pDeviceMgr->GetSprite()->SetTransform(&m_tInfo.matWorld);
-	m_pDeviceMgr->GetSprite()->Draw(pTexInfo->pTexture, nullptr, &D3DXVECTOR3(m_CharacterInfo.m_fCenterX, m_CharacterInfo.m_fCenterY, 0.f),
+	m_pDeviceMgr->GetSprite()->Draw(pTexInfo->pTexture, nullptr, &D3DXVECTOR3(m_tInfo.fCenterX, m_tInfo.fCenterY, 0.f),
 		nullptr, D3DCOLOR_ARGB(255, 255, 255, 255));
 }
 
@@ -59,10 +58,10 @@ HRESULT CMonster::Initialize()
 	NULL_CHECK_RETURN(pTexInfo, E_FAIL);
 	
 
-	m_CharacterInfo.m_iMaxHP	= 70;
-	m_CharacterInfo.m_iCurHP	= m_CharacterInfo.m_iMaxHP;
-	m_CharacterInfo.m_fCenterX	= pTexInfo->tImgInfo.Width * 0.5f;
-	m_CharacterInfo.m_fCenterY	= pTexInfo->tImgInfo.Height * 0.5f;
+	m_CharacterInfo.iMaxHP		= 70;
+	m_CharacterInfo.iCurHP		= m_CharacterInfo.iMaxHP;
+	m_tInfo.fCenterX			= (float)pTexInfo->tImgInfo.Width  * 0.5f;
+	m_tInfo.fCenterY			= (float)pTexInfo->tImgInfo.Height * 0.5f;
 
 	m_HPBar = CHPBar::Create(this);
 	return S_OK;
@@ -83,3 +82,5 @@ CMonster * CMonster::Create()
 	}
 	return pInstance;
 }
+
+

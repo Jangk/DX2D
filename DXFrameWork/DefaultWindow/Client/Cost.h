@@ -1,13 +1,16 @@
 #pragma once
-#include "Card.h"
-class CPowerCard : public CCard
+#include "GameObject.h"
+class CPlayer;
+class CCost :
+	public CGameObject
 {
 private:
-	CPowerCard();
+	CCost();
 public:
-	~CPowerCard();
+	~CCost();
 
-	// CCard을(를) 통해 상속됨
+public:
+	// CGameObject을(를) 통해 상속됨
 	virtual int Update() override;
 	virtual void LateUpdate() override;
 	virtual void Render() override;
@@ -15,9 +18,10 @@ public:
 	virtual void Release() override;
 
 public:
-	static CPowerCard* Create();
-	void SetCard(POWER_CARD_TYPE type);
+	static CCost* Create();
+
 private:
-	POWER_CARD_TYPE m_ePowerCardType;
+	CPlayer*		m_Player;
+	TCHAR			m_szCost[MIN_STR];
 };
 

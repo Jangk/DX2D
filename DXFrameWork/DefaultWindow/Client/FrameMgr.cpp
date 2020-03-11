@@ -55,11 +55,11 @@ void CFrameMgr::RenderFPS()
 
 	if (1.f <= m_fTimeCount2) // 1초가 지났다.
 	{
-		swprintf_s(m_szFPS, L"FPS: %d", m_iFpsCount, (int)mouse.x, (int)mouse.y);
+		swprintf_s(m_szFPS, L"FPS: %d", m_iFpsCount);
 		m_fTimeCount2 = 0.f;
 		m_iFpsCount = 0;
 	}
-	swprintf_s(m_szMouse, L"MouseX : %d\nMouseY : %d", (int)mouse.x, (int)mouse.y);
+	swprintf_s(m_szMouse, L"MouseX : %d\nMouseY : %d", (int)mouse.x, (int)mouse.y + (int)CScrollMgr::GetInstance()->GetScrollPos().y);
 	
 	// 다이렉트 폰트 출력
 	D3DXMATRIX matTrans;

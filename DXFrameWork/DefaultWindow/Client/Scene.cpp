@@ -9,7 +9,8 @@ CScene::CScene()
 	m_pSceneMgr(CSceneMgr::GetInstance()),
 	m_pObjectMgr(CObjectMgr::GetInstance()),
 	m_pKeyMgr(CKeyMgr::GetInstance()),
-	m_pScrollMgr(CScrollMgr::GetInstance())
+	m_pScrollMgr(CScrollMgr::GetInstance()),
+	m_pGameMgr(CGameMgr::GetInstance())
 {
 }
 

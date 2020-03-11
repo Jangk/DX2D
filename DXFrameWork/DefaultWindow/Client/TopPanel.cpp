@@ -26,18 +26,13 @@ void CTopPanel::Render()
 {
 	D3DXMATRIX matTextTrans;
 	const TEX_INFO* pTexInfo;
-	float fCenterX;
-	float fCenterY;
 
 	// 패널바
 	pTexInfo = m_pTextureMgr->GetTexInfo(L"UI", L"Bar", 1);
 	NULL_CHECK(pTexInfo);
 	
-	fCenterX = pTexInfo->tImgInfo.Width * 0.5f;
-	fCenterY = pTexInfo->tImgInfo.Height * 0.5f;
-	
 	m_pDeviceMgr->GetSprite()->SetTransform(&m_tInfo.matWorld);
-	m_pDeviceMgr->GetSprite()->Draw(pTexInfo->pTexture, nullptr, &D3DXVECTOR3(fCenterX, fCenterY, 0.f),
+	m_pDeviceMgr->GetSprite()->Draw(pTexInfo->pTexture, nullptr, &D3DXVECTOR3(m_tInfo.fCenterX, m_tInfo.fCenterY, 0.f),
 		nullptr, D3DCOLOR_ARGB(255, 255, 255, 255));
 
 
@@ -45,8 +40,8 @@ void CTopPanel::Render()
 	pTexInfo = m_pTextureMgr->GetTexInfo(L"UI", L"panelHeart", 1);
 	NULL_CHECK(pTexInfo);
 	
-	fCenterX = pTexInfo->tImgInfo.Width * 0.5f;
-	fCenterY = pTexInfo->tImgInfo.Height * 0.5f;
+	float fCenterX = pTexInfo->tImgInfo.Width * 0.5f;
+	float fCenterY = pTexInfo->tImgInfo.Height * 0.5f;
 	
 	D3DXMatrixTranslation(&matTextTrans, m_vecHeart.x, m_vecHeart.y, 0);
 	m_pDeviceMgr->GetSprite()->SetTransform(&matTextTrans);
@@ -56,7 +51,7 @@ void CTopPanel::Render()
 
 	D3DXMatrixTranslation(&matTextTrans, m_vecHeart.x + 30, m_vecHeart.y - 10, 0);
 	m_pDeviceMgr->GetSprite()->SetTransform(&matTextTrans);
-	swprintf_s(m_wstrUI, L"%d / %d", m_PlayerInfo.m_iCurHP, m_PlayerInfo.m_iMaxHP);
+	swprintf_s(m_wstrUI, L"%d / %d", m_PlayerInfo.iCurHP, m_PlayerInfo.iMaxHP);
 	m_pDeviceMgr->GetFont()->DrawText(
 		m_pDeviceMgr->GetSprite(), /* 스프라이트 COM 객체 */
 		m_wstrUI, /* 출력할 문자열 */
@@ -81,7 +76,7 @@ void CTopPanel::Render()
 	
 	D3DXMatrixTranslation(&matTextTrans, m_vecGoldBag.x + 30, m_vecGoldBag.y -10, 0);
 	m_pDeviceMgr->GetSprite()->SetTransform(&matTextTrans);
-	swprintf_s(m_wstrUI, L"%d", m_PlayerInfo.m_iGold);
+	swprintf_s(m_wstrUI, L"%d", m_PlayerInfo.iGold);
 	m_pDeviceMgr->GetFont()->DrawText(
 		m_pDeviceMgr->GetSprite(), 
 		m_wstrUI, 
@@ -93,13 +88,16 @@ void CTopPanel::Render()
 
 HRESULT CTopPanel::Initialize()
 {
-	m_Player			= CObjectMgr::GetInstance()->GetPlayer();
+	const TEX_INFO* pTexInfo = m_pTextureMgr->GetTexInfo(L"UI", L"Bar", 1);
+	m_Player			= dynamic_cast<CPlayer*>(*CObjectMgr::GetInstance()->GetGameObject(OBJECT_PLAYER).begin());
 	m_tInfo.vPos		= {WINCX*0.5f, 40, 0};
 	m_vecHeart			= { 200, 20, 0 };
 	m_vecGoldBag		= { 350, 20, 0 };
 	D3DXMatrixScaling(&m_tInfo.matScale, 1, 1, 1);
 	D3DXMatrixTranslation(&m_tInfo.matTrans, m_tInfo.vPos.x, m_tInfo.vPos.y, 0);
 	m_tInfo.matWorld	= m_tInfo.matScale * m_tInfo.matTrans;
+	m_tInfo.fCenterX	= pTexInfo->tImgInfo.Width * 0.5f;
+	m_tInfo.fCenterY	= pTexInfo->tImgInfo.Height * 0.5f;
 	return S_OK;
 }
 

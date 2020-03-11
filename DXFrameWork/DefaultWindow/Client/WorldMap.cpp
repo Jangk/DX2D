@@ -16,9 +16,6 @@ CWorldMap::~CWorldMap()
 
 int CWorldMap::Update()
 {
-	if (m_pKeyMgr->KeyDown(KEY_LBUTTON))
-		m_pSceneMgr->SceneChange(SCENE_WORLD_MAP, SCENE_STAGE);			// 일단 클릭만하면 씬넘어가게.
-
 	for (int i = 0; i < 4; ++i)
 		m_Nord[i]->Update();
 	return ScrollScreen();
@@ -55,7 +52,7 @@ void CWorldMap::Render()
 		D3DXMatrixScaling(&scale, m_fImageScaleX, m_fImageScaleY, 0);
 		D3DXMatrixTranslation(&translation, m_vecWorldMap[i]->x - CScrollMgr::GetInstance()->GetScrollPos().x,
 											m_vecWorldMap[i]->y - CScrollMgr::GetInstance()->GetScrollPos().y,
-											m_vecWorldMap[i]->z);
+											1);
 		matWorld = scale * translation;
 		m_pDeviceMgr->GetSprite()->SetTransform(&matWorld);
 		m_pDeviceMgr->GetSprite()->Draw(pTexInfo->pTexture, nullptr, &D3DXVECTOR3(fCenterX, fCenterY, 0.f),
@@ -75,8 +72,8 @@ HRESULT CWorldMap::Initialize()
 	const TEX_INFO* info = m_pTextureMgr->GetTexInfo(L"WorldMap", L"Mid", 1);
 	m_fImageScaleX	= 0.5f;						// 월드맵 이미지 배율
 	m_fImageScaleY	= 0.5f;
-	m_fWorldMapCX	= info->tImgInfo.Width;
-	m_fWorldMapCY	= info->tImgInfo.Height;
+	m_fWorldMapCX	= (float)info->tImgInfo.Width;
+	m_fWorldMapCY	= (float)info->tImgInfo.Height;
 
 
 	// 월드맵 위치 정보
@@ -103,7 +100,7 @@ HRESULT CWorldMap::Initialize()
 		m_Nord[i] = CNord::Create();
 		m_Nord[i]->SetPos(
 			WINCX * 0.5f, ((float)WINCY + WORLDCY) - (200 * (i + 1)),	0);
-		m_Nord[i]->SetNord(NORD_MONSTER);
+		m_Nord[i]->SetNord(NORD_TYPE(i));
 	}
 
 	return S_OK;

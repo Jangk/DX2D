@@ -118,6 +118,15 @@
     <Filter Include="01.GameObject\03.UI\03.Nord">
       <UniqueIdentifier>{445f921e-c091-4fe7-9a76-b2028f7b788a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="98.Managers\09.GameMgr">
+      <UniqueIdentifier>{bff1e30b-4b98-4e25-9885-d494ddde4c55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.GameObject\03.UI\04.Cost">
+      <UniqueIdentifier>{6c1cfc53-63fa-4207-90de-95631609f6cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.GameObject\03.UI\05.EndButton">
+      <UniqueIdentifier>{c3827523-aa43-490c-a539-d2b829e965ab}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -204,12 +213,6 @@
     <ClInclude Include="AttackCard.h">
       <Filter>01.GameObject\02.Card\00.Attack</Filter>
     </ClInclude>
-    <ClInclude Include="SkillCard.h">
-      <Filter>01.GameObject\02.Card\01.Skill</Filter>
-    </ClInclude>
-    <ClInclude Include="PowerCard.h">
-      <Filter>01.GameObject\02.Card\02.Power</Filter>
-    </ClInclude>
     <ClInclude Include="Monster.h">
       <Filter>01.GameObject\01.Character\01.Monster</Filter>
     </ClInclude>
@@ -230,6 +233,15 @@
     </ClInclude>
     <ClInclude Include="Nord.h">
       <Filter>01.GameObject\03.UI\03.Nord</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMgr.h">
+      <Filter>98.Managers\09.GameMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="Cost.h">
+      <Filter>01.GameObject\03.UI\04.Cost</Filter>
+    </ClInclude>
+    <ClInclude Include="EndButton.h">
+      <Filter>01.GameObject\03.UI\05.EndButton</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -308,12 +320,6 @@
     <ClCompile Include="AttackCard.cpp">
       <Filter>01.GameObject\02.Card\00.Attack</Filter>
     </ClCompile>
-    <ClCompile Include="SkillCard.cpp">
-      <Filter>01.GameObject\02.Card\01.Skill</Filter>
-    </ClCompile>
-    <ClCompile Include="PowerCard.cpp">
-      <Filter>01.GameObject\02.Card\02.Power</Filter>
-    </ClCompile>
     <ClCompile Include="Monster.cpp">
       <Filter>01.GameObject\01.Character\01.Monster</Filter>
     </ClCompile>
@@ -337,6 +343,15 @@
     </ClCompile>
     <ClCompile Include="Nord.cpp">
       <Filter>01.GameObject\03.UI\03.Nord</Filter>
+    </ClCompile>
+    <ClCompile Include="GameMgr.cpp">
+      <Filter>98.Managers\09.GameMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="Cost.cpp">
+      <Filter>01.GameObject\03.UI\04.Cost</Filter>
+    </ClCompile>
+    <ClCompile Include="EndButton.cpp">
+      <Filter>01.GameObject\03.UI\05.EndButton</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

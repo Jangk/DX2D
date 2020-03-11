@@ -1,6 +1,7 @@
 #pragma once
 
 class CPlayer;
+class CCard;
 class CGameObject;
 class CObjectMgr
 {
@@ -20,9 +21,8 @@ private:
 	void Release();
 
 public:
-	CPlayer* GetPlayer();
-	const list<CGameObject*>& GetCardDeck();
-	bool IsPickingMonster();
+	const list<CGameObject*> GetGameObject(OBJECT_TYPE eType);
+	void DeleteGruop(OBJECT_TYPE eType);
 
 private:
 	list<CGameObject*>	m_ObjectList[OBJECT_END];

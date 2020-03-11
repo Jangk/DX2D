@@ -19,7 +19,7 @@ CPlayer::~CPlayer()
 int CPlayer::Update()
 {		
 	m_HPBar->Update();
-	m_tFrame.fCurFrame += m_tFrame.fMaxFrame * m_pTimeMgr->GetDelta()* 0.25f;
+	m_tFrame.fCurFrame += m_tFrame.fMaxFrame * m_pTimeMgr->GetDelta()* 0.25f;			// 4초
 
 	if (m_tFrame.fMaxFrame <= m_tFrame.fCurFrame)
 		m_tFrame.fCurFrame = 0.f;
@@ -71,25 +71,28 @@ void CPlayer::Render()
 	D3DXMatrixTranslation(&m_tInfo.matTrans, m_tInfo.vPos.x, m_tInfo.vPos.y, 1);
 	m_tInfo.matWorld = m_tInfo.matScale * m_tInfo.matTrans;
 	m_pDeviceMgr->GetSprite()->SetTransform(&m_tInfo.matWorld);
-	m_pDeviceMgr->GetSprite()->Draw(pTexInfo->pTexture, nullptr, &D3DXVECTOR3(m_CharacterInfo.m_fCenterX, m_CharacterInfo.m_fCenterY, 0.f),
+	m_pDeviceMgr->GetSprite()->Draw(pTexInfo->pTexture, nullptr, &D3DXVECTOR3(m_tInfo.fCenterX, m_tInfo.fCenterY, 0.f),
 		nullptr, D3DCOLOR_ARGB(255, 255, 255, 255));
 }
 
 HRESULT CPlayer::Initialize()
 {	// m_tInfo 초기화는 CGameObject 생성자에서 처리함.
-	m_tInfo.vPos		= { 300.f, 550.f, 0 };
-	m_tFrame.fCurFrame	= 0.f;
-	m_tFrame.fMaxFrame	= 53.f;
-	
+	m_tInfo.vPos				= { 300.f, 550.f, 0 };
+	m_tFrame.fCurFrame			= 0.f;
+	m_tFrame.fMaxFrame			= 53.f;
+	m_CharacterInfo.bIsPlayer	= true;		// 카드 사용시 피아 식별을 위하여.
 
 	// 캐릭터
 	const TEX_INFO* pTexInfo = m_pTextureMgr->GetTexInfo(L"Player", L"Idle", 0);
 	NULL_CHECK_RETURN(pTexInfo, E_FAIL);
 
-	m_CharacterInfo.m_iMaxHP	= 70;
-	m_CharacterInfo.m_iCurHP	= m_CharacterInfo.m_iMaxHP;
-	m_CharacterInfo.m_fCenterX	= pTexInfo->tImgInfo.Width * 0.5f;
-	m_CharacterInfo.m_fCenterY	= pTexInfo->tImgInfo.Height * 0.5f;
+	m_CharacterInfo.iMaxHP		= 70;
+	m_CharacterInfo.iCurHP		= m_CharacterInfo.iMaxHP;
+	m_CharacterInfo.iMaxCost	= 3;
+	m_CharacterInfo.iCurCost	= m_CharacterInfo.iMaxCost;
+	m_CharacterInfo.iSheild		= 0;
+	m_tInfo.fCenterX			= (float)pTexInfo->tImgInfo.Width  * 0.5f;
+	m_tInfo.fCenterY			= (float)pTexInfo->tImgInfo.Height * 0.5f;
 
 	// 플레이가 사라지면 자동으로 사라지게
 	m_HPBar = CHPBar::Create(this);
@@ -111,3 +114,10 @@ CPlayer* CPlayer::Create()
 	}
 	return pInstance;
 }
+
+void CPlayer::UseCost(int i)
+{
+	if(i <= m_CharacterInfo.iCurCost)
+		m_CharacterInfo.iCurCost -= i;
+}
+

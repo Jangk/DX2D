@@ -21,5 +21,8 @@ public:
 	static CMonster* Create();
 
 private:
+
+
+
 };
 

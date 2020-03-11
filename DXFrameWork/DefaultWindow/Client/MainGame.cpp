@@ -2,15 +2,10 @@
 #include "MainGame.h"
 #include "Card.h"
 #include "AttackCard.h"
-#include "SkillCard.h"
-#include "PowerCard.h"
 
 
 
 /* 해야할것
-1. 월드맵이랑 스테이지 씬을 합칠것
- - 월드맵에서는 화면 스크롤이 적용되지만 전투씬이나 이벤트 씬에서는 스크롤이 적용되지않게
-
  2. 전투씬에서 카드가 Selected상태일때 올바른 대상을 클릭하면 작동하게 할것.
 
 */
@@ -79,7 +74,6 @@ HRESULT CMainGame::Initialize()
 	return S_OK;
 }
 
-
 void CMainGame::Release()
 {
 	m_pFrameMgr->DestroyInstance();
@@ -90,7 +84,6 @@ void CMainGame::Release()
 	m_pTextureMgr->DestroyInstance();
 	m_pDeviceMgr->DestroyInstance();
 }
-
 
 CMainGame* CMainGame::Create()
 {
@@ -106,7 +99,7 @@ CMainGame* CMainGame::Create()
 }
 
 void CMainGame::InitializeCardDeck()
-{
+{	// 겜시작시 가지는 디폴트 카드덱
 	CCard* temp;
 	// 일단 공격카드 10장 넣음.
 	for (int i = 0; i < DRAW_CARD_MAX; ++i)
@@ -116,7 +109,6 @@ void CMainGame::InitializeCardDeck()
 		m_pObjectMgr->AddObject(OBJECT_CARD, temp);
 	}
 }
-
 
 HRESULT CMainGame::LoadImageResource()
 {
@@ -160,9 +152,9 @@ HRESULT CMainGame::LoadImageResource()
 			TEXTURE_MULTI,
 			L"../Resource/WorldMap/chest.png",
 			L"WorldMap",
-			L"Chest",
+			L"chest",
 			1);
-		FAILED_CHECK_MSG_RETURN(hr, L"Chest", E_FAIL);
+		FAILED_CHECK_MSG_RETURN(hr, L"chest", E_FAIL);
 
 		hr = m_pTextureMgr->LoadTexture(
 			pGraphicDev,
@@ -268,7 +260,7 @@ HRESULT CMainGame::LoadImageResource()
 			L"../Resource/Card/Silent/Skill/Skill_%02d.png",
 			L"Card",
 			L"Skill",
-			13);
+			10);
 		FAILED_CHECK_MSG_RETURN(hr, L"Skill", E_FAIL);
 
 
@@ -473,6 +465,17 @@ HRESULT CMainGame::LoadImageResource()
 			1);
 		FAILED_CHECK_MSG_RETURN(hr, L"MaxHP", E_FAIL);
 
+		
+		// 쉴드 체력바
+		hr = m_pTextureMgr->LoadTexture(
+			pGraphicDev,
+			TEXTURE_MULTI,
+			L"../Resource/UI/InGame/SheildHP.png",
+			L"UI",
+			L"SheildHP",
+			1);
+		FAILED_CHECK_MSG_RETURN(hr, L"SheildHP", E_FAIL);
+
 
 		// 에너지 아이콘
 		hr = m_pTextureMgr->LoadTexture(
@@ -505,6 +508,26 @@ HRESULT CMainGame::LoadImageResource()
 			L"Tomb",
 			1);
 		FAILED_CHECK_MSG_RETURN(hr, L"Tomb", E_FAIL);
-	}
 
+		// endTurnButton
+		hr = m_pTextureMgr->LoadTexture(
+			pGraphicDev,
+			TEXTURE_MULTI,
+			L"../Resource/UI/Button/endTurnButton.png",
+			L"UI",
+			L"endTurnButton",
+			1);
+		FAILED_CHECK_MSG_RETURN(hr, L"endTurnButton", E_FAIL);
+
+		// endTurnButtonGlow
+		hr = m_pTextureMgr->LoadTexture(
+			pGraphicDev,
+			TEXTURE_MULTI,
+			L"../Resource/UI/Button/endTurnButtonGlow.png",
+			L"UI",
+			L"endTurnButtonGlow",
+			1);
+		FAILED_CHECK_MSG_RETURN(hr, L"endTurnButtonGlow", E_FAIL);
+	}
+	return S_OK;
 }

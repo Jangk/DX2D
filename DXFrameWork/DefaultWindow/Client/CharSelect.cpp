@@ -58,7 +58,7 @@ void CCharSelect::Render()
 	fCenterY = pTexInfo->tImgInfo.Height * 0.5f;
 	
 	//   캐릭터 선택시 레터 박스 만들려고  y scale 0.8f
-	D3DXMatrixScaling(&scale, 1, 0.8f, 1);
+	D3DXMatrixScaling(&scale, 1, 1, 1);
 	D3DXMatrixTranslation(&translation, WINCX*0.5f, WINCY*0.5f, 1);
 	matWorld = scale * translation;
 	
@@ -95,7 +95,7 @@ void CCharSelect::Render()
 	fCenterY = pTexInfo->tImgInfo.Height * 0.5f;
 	
 	D3DXMatrixScaling(&scale, 1, 1, 1);
-	D3DXMatrixTranslation(&translation, m_vecButton[iIndex]->vPos.x, m_vecButton[iIndex]->vPos.y, m_vecButton[iIndex]->vPos.z + 0.1);
+	D3DXMatrixTranslation(&translation, m_vecButton[iIndex]->vPos.x, m_vecButton[iIndex]->vPos.y, m_vecButton[iIndex]->vPos.z + (float)0.1);
 	matWorld = scale * translation;
 	
 	m_pDeviceMgr->GetSprite()->SetTransform(&matWorld);
@@ -204,10 +204,10 @@ void CCharSelect::IsPicking()
 
 	for (auto iter : m_vecButton)
 	{
-		rect.left		= iter->vPos.x - SELECTBUTTONCX * 0.5f;
-		rect.top		= iter->vPos.y - SELECTBUTTONCY * 0.5f;
-		rect.right		= iter->vPos.x + SELECTBUTTONCX * 0.5f;
-		rect.bottom		= iter->vPos.y + SELECTBUTTONCY * 0.5f;
+		rect.left		= (LONG)(iter->vPos.x - SELECTBUTTONCX * 0.5f);
+		rect.top		= (LONG)(iter->vPos.y - SELECTBUTTONCY * 0.5f);
+		rect.right		= (LONG)(iter->vPos.x + SELECTBUTTONCX * 0.5f);
+		rect.bottom		= (LONG)(iter->vPos.y + SELECTBUTTONCY * 0.5f);
 
 		if (m_Mouse.x > rect.left &&
 			m_Mouse.x < rect.right)

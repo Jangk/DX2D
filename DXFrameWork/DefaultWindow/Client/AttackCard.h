@@ -13,13 +13,17 @@ public:
 	virtual void Render() override;
 	virtual HRESULT Initialize() override;
 	virtual void Release() override;
+	virtual bool ActivateCard(CCharacter * target) override;
 
 public:
 	static CAttackCard* Create();
 	void SetCard(ATTACK_CARD_TYPE type);
 
+private:
+	void FontInit();
 
 private:
 	ATTACK_CARD_TYPE m_eAttackCardType;
+
 };
 

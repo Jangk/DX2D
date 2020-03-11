@@ -11,7 +11,8 @@ public:
 
 public:
 	const CHARACTER_INFO& GetCharacterInfo();
-	void SetDamage(int iDamage);
+	void SetDamege(int i);
+	void SetSheild(int i);
 
 protected:
 	FRAME			m_tFrame;

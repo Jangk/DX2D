@@ -49,7 +49,6 @@ HRESULT CSceneMgr::SceneChange(SCENE_TYPE eCurType, SCENE_TYPE eNextType)
 		default:
 			break;
 		}
-
 		NULL_CHECK_RETURN(m_pScene, E_FAIL);
 	}
 

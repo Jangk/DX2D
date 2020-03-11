@@ -23,6 +23,9 @@ public:
 	void SetRotate(float angle);
 	void SetScale(float x, float y, float z);
 	const INFO& GetInfo();
+	D3DXVECTOR3 GetScale();
+	void MoveTo(D3DXVECTOR3 vecTarget, float fSpeed);
+	D3DXVECTOR3 MyLerp(D3DXVECTOR3 start, D3DXVECTOR3 end, float fSpeed);
 	
 
 protected:
@@ -30,6 +33,8 @@ protected:
 	CTextureMgr*	m_pTextureMgr;	
 	CTimeMgr*		m_pTimeMgr;
 	CObjectMgr*     m_pObjectMgr;
+	CGameMgr*		m_pGameMgr;
+	CKeyMgr*		m_pKeyMgr;
 
 	INFO			m_tInfo;
 };

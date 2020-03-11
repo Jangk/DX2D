@@ -15,7 +15,7 @@ CLogo::~CLogo()
 
 int CLogo::Update()
 {
-	if (m_pKeyMgr->KeyDown(KEY_RETURN))
+	if (m_pKeyMgr->KeyDown(KEY_LBUTTON))
 	{
 		m_pSceneMgr->SceneChange(SCENE_LOGO, SCENE_CHARECTER_SELECTE);
 		return CHANGE_SCENE;

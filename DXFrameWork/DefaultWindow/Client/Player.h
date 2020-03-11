@@ -20,9 +20,13 @@ private:
 
 public:
 	static CPlayer* Create();
+	void UseCost(int i);
 
 private:
 	CKeyMgr*		m_pKeyMgr;
 	PLAYER_STATE	m_eState;
+
+
+
 };
 

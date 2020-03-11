@@ -1,13 +1,13 @@
 #pragma once
-#include "Card.h"
-class CSkillCard : public CCard
+#include "GameObject.h"
+class CEndButton : public CGameObject
 {
 private:
-	CSkillCard();
+	CEndButton();
 public:
-	~CSkillCard();
+	~CEndButton();
 
-	// CCard을(를) 통해 상속됨
+	// CGameObject을(를) 통해 상속됨
 	virtual int Update() override;
 	virtual void LateUpdate() override;
 	virtual void Render() override;
@@ -15,9 +15,11 @@ public:
 	virtual void Release() override;
 
 public:
-	static CSkillCard* Create();
-	void SetCard(SKILL_CARD_TYPE type);
+	static CEndButton* Create();
+
 private:
-	SKILL_CARD_TYPE m_eSkillCardType;
+	TCHAR m_szText[MIN_STR];
+	bool m_bIsRender;
+	bool m_bIsPicking;
 };
 
